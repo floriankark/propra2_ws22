@@ -126,4 +126,44 @@ Um Wissen über die Domäne zu sammeln, gibt es im DDD sogenannte Knowledge Crun
 
 # Woche 2
 
+## Software-Architektur
 
+## Entwicklung planen
+
+## Muster
+
+### Das Schichtarchitektur-Muster
+In einer strikten Architektur haben wir eine losere Kopplung, da eine Schicht ausschließlich eine andere Schicht verwendet. Der Preis dafür ist aber, dass wir evtl. viele Methoden liefern müssen, die Aufrufe in tiefere Schichten weiterleiten. Das kann die Performance einer Anwendung negativ beeinflussen.
+
+Vorteile
+- Einfach und leicht zu verstehen
+- Klare Abhängigkeiten
+- Reduktion der Kopplung von Komponenten (SRP, LCHC Low Coupling, High Cohesion)
+- einheitlicher Abstraktionsgrad
+- Austausch von ganzen Schichten
+
+Nachteile
+- Bei Änderungen in der untersten Schicht müssen alle darüberliegenden Schichten geändert werden
+
+![schichtarchitektur](images/schichtarchitektur.png)
+
+Bei den Aggregate kann es eine Klasse geben, die mehrere vollkommen unterschiedliche Aufgaben hat. Einerseits die Geschäftsaufgaben, andererseits z.B. sich aus der Datenbank zu laden und zu speichern. Das ist ziemlich deutlich eine Verletzung des Single Responsibility Prinzips.
+
+Lösung: Das Repository-Pattern
+- Verschiebung der Verantwortung der obigen Klasse in eine dedizierte Klasse (Repository). Das Repository stellt Lade- und Speicheroperationen für fachliche Objekte bereit, die Datenbank wird dabei abstrahiert. Für den aufrufenden Code wirkt ein Repository wie eine Sammlung von Fachobjekten und befindet sich nun in der Persistenzschicht.
+
+- Mit Dependency Inversion erstellen wir zueltzt noch ein Repository-Interface in der Geschäftslogik und implementieren das Interface in der Persistenzschicht.
+
+=> Dadurch erhalten wir die Onion Architektur
+
+## Die Onion-Architektur
+
+![onionschicht1](images/onionschicht1.png)
+![onionschicht2](images/onionschicht2.png)
+
+- Controller extrahieren Daten aus dem Request und bauen ModelAndView zusammen
+- Application Services koordinieren einen Geschäftsvorfall (Daten laden, Geschäftslogik aufrufen, Daten speichern)
+- Das Domänen Modell setzt die Geschäftsregeln um
+- Repositories
+    - Haben eine fachliche Schnittstelle in der Geschäftslogik
+    - Werden in der Infrastrukturschicht implementiert
