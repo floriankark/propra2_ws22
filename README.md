@@ -17,6 +17,8 @@ Wasserfall Modell
 - Am Ende einer Phase wir der Meilenstein abgenommen
 - Eine Phase beginnt erst, wenn die vorhergehende Phase abgeschlossen ist
 
+![wasserfallmodell](images/wasserfallmodell.png)
+
 ## Iterative Entwicklung
 
 ## Prototypen
