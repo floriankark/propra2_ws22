@@ -186,4 +186,144 @@ Wenn wir die Dependencies der Schichten, die von der Geschäftslogik aufgerufen 
     - Haben eine fachliche Schnittstelle in der Geschäftslogik
     - Werden in der Infrastrukturschicht implementiert
     
-## Woche 3
+# Woche 3
+
+
+## Zerlegungen eines Systems
+Zerlegung eines Gesamtsystems. Ein Software-System kann aus einem oder mehreren ausführbaren Programmen bestehen. Entweder Monolithen oder Microservice-Architekturen oder etwas dazwischen.
+
+## Code-Organisation und Building
+Wir haben die Auswahl, ob wir alle Services in einem einzigen Code-Repository (Monorepo) oder jeden Microservice (oder Gruppen von Services) im jeweils eigenen Repository (Polyrepos) entwickeln.
+
+## Technologie-Stack
+Ist die Auswahl der Technologien, die benutzt wird, um eine Software umzusetzen (z.B. Betriebssystem und ggf. Virtualisierungen, Programmiersprachen, Frameworks, externe Softwareprodukte wie Datenbanken oder Messagebroker ...)
+Im gegensatz zum Microservice gibt es im Monolithen nur einen Technologie-Stack.
+
+## Transaktionen
+Wenn wir in einem Programm darauf angewiesen sind, dass sich Zustand nur konsistent ändert, werden Transaktionen wichtig.
+Als Transaktion eine Folge von Programmschritten bezeichnet, die als eine logische Einheit betrachtet werden, weil sie den Datenbestand nach fehlerfreier und vollständiger Ausführung in einem konsistenten Zustand hinterlassen. Daher wird für eine Transaktion insbesondere gefordert, dass sie entweder vollständig und fehlerfrei oder gar nicht ausgeführt wird.
+
+## Monolithen
+
+### Pro
+- Übersichtliche Gesamtstruktur (Build, Deployment, ...)
+- Interaktion über normale Methodenaufrufe
+    - Hohe Performance
+    - Zuverlässig
+    - Entwicklung einfacher
+- Transaktionen sind gut umsetzbar
+    - Konsistenz von Daten gut einhaltbar
+
+### Contra
+- Modularisierung kann einfach umgangen werden
+    - Disziplin mit Archunit
+    - Modularisierung durch Submodule
+- Ein Prozess = Eine Plattform
+- Blast Radius bei Fehlern
+    - Bei einer ungefangenen Exception stürzt das gesammte System ab.
+- Skalierung (Performance und Entwicklung)
+
+## Microservices
+
+Monolith wird in mehrere Anwendungen aufgeteilt. Die Kommuniktation zwischen den Services geschieht nun über das Netzwerk.
+
+### **Skalierung**
+
+→ Unabhängige Skalierung einzelner Bestandteile
+
+### **Komponentenbildung**
+
+→ Modularisierung nun stärker eingehalten. Netzwerkaufruf für jeden Aufruf zwischen Komponenten notwendig
+
+### **Polyglotte Programmierung**
+
+→ Microservices können unabhängige Technologien verwenden. Man kann die passenste Technologie für die bewältigung der Aufgabe wählen.
+
+### **Robustheit**
+
+→ Blast Radius begrenzt. Stürzt ein Service ab laufen andere Services trotzdem weiter.
+
+Nicht automatisch robust. Abhängigkeiten zwischen Services führen trotzdem zu abstürzen. Die Aufrufe zwischen Services sind nicht mehr zuverlässig.
+
+### **Aufteilung**
+
+Bei falscher Aufteilung verschmelzen die Nachteile von Monolithen und Microservices. Wenn für das Deployment alle Services vorhanden seien müssen, so gibt es eine falsche Aufteilung. Services sollen unabhängig von einander deployed werden können. → Autonomie
+
+1. Aufrufe minimieren
+2. Tennen zwischen Micro und Makroarchitektur
+
+### **Makroarchitektur**
+
+- Regeln für die Systemintegration und Kommunikation
+- Regeln für die Authentifizierung und andere Metadaten
+- Regeln für das Deployment und Konfiguration
+- Regeln für das Monitoring
+
+### **Autonomie**
+
+- Services werden unabhängig voneinander entwickelt und in Betrieb genommen
+- fachlichen Schnitt wählen (Bounded Context)
+
+### **Pro**
+- Technologiestack frei wählbar
+- Grenzen im Code (Modularisierung)
+- Services können ausgetauscht werden
+- System kann auch bei Ausfall eines Services weiter funktionieren
+- Skalierung ist feingranularer
+- Weniger teamübergreifende Koordination
+
+### **Contra**
+- Aufrufe nicht mehr zuverlässig
+- Verteilte Transactionen
+- Emergentes Verhalten (Verteilter Aufruf von Code)
+
+## Skalierung
+Einen Monolithen können wir nur vollständig skalieren. Wenn wir den Produktkatalog skalieren, dann wird der Versand mitskaliert. Bei einer Microservice-Architektur können wir die Services unterschiedlich stark skalieren und auf den Bedarf anpassen.
+
+### Vertikale Skalierung (Scale Up)
+
+- Erhöhen der Ressourcen des Servers
+- Pro
+    - Keine Änderung der Software notwendig
+- Contra
+    - Teuer
+    - Irgendwann nicht mehr möglich.
+
+### Horizontale Skalierung (Scale Out)
+
+- Erhöhung der Anzahl der Server
+- Pro
+    - Günstiger
+    - Keine Hardware Grenzen
+- Contra
+    - Effzienz der Software entscheidend
+    - Symmetrische Skalierung
+        - Wenn eine Anwendung im System viel öfter genutzt wird als andere Bestandteile, so muss trotzdem die gesamte Anwendung dupliziert werden.
+        - Einzelteile können nicht eigenständig skaliert werden
+        - Führt zu Verschwendung von Ressourcen
+    - Time to Market
+        - Koordination ist problematisch
+            - Feature Release
+                - Man wartet auf das neue Feature das gebraucht wird, bis es fertig ist
+            - Release Trains
+                - Nach einem bestimmten Zeitintervall (z.B. alle drei Montate) werden alle fertigen Features released
+
+![loadBalancer](images/loadBalancer.png)
+
+- Zustand muss zwischen den Servern geteilt werden
+    - Kann gelöst werden durch Sticky Sessions (Requests vom selben User gehen an den selben Server)
+    - Zustand kann immer mitgesendet werden
+    - Zustand kann in einer geteilten Datenhaltung abgelegt werden
+
+## Teamstrukturen
+Conway’s Law ist ganz besonders in Microservice-Architekturen von Bedeutung, aber auch in einem Monolithen können wir Modulgrenzen haben, die dann ebenfalls von der Organisationsstruktur mitbestimmt werden.
+
+## Was ist denn eigentlich ein Microservice?
+## Verteilte Monolithen
+Wenn wir eine Microservice-Architektur nicht sinnvoll schneiden, dann kann es uns passieren, dass wir einen verteilten Monolithen entwickeln.
+Verteilte Monolithen sind ein Riesenproblem, da die Nachteile von Monolithen mit den Nachteilen von Microservices kombiniert werden.
+
+## Zwischen den Extremen
+Wir müssen uns übrigens nicht für einen Monolithen oder ein System aus Tausenden von Microservices entscheiden. Es gibt durchaus Platz für Lösungen, die dazwischen liegen. (siehe Self-Contained-Systems (SCS))
+
+## Wie zerlegen wir denn nun ein System?
