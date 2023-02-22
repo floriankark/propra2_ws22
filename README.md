@@ -127,8 +127,25 @@ Um Wissen über die Domäne zu sammeln, gibt es im DDD sogenannte Knowledge Crun
 # Woche 2
 
 ## Software-Architektur
-
 ## Entwicklung planen
+Besonders die ersten drei Kapitel des Templates sind für uns interessant.
+
+![arc42-overview-V8](images/arc42-overview-V8.png)
+
+Ziele
+Das erste Kapitel der Dokumentation soll einen schnellen Überblick darüber geben, welche Ziele die Software erreichen soll (auch Qualitätsziele)
+
+Stakeholder
+Stakeholder-Analyse durchführen
+Wenn wir die Gruppen mithilfe dieses Rasters klassifiziert haben, können wir gezielter mit ihnen interagieren.
+
+![matrixStakeholder](images/matrixStakeholder.png)
+
+Einschränkungen
+Budget, Personalausstattung und auch Qualifikationen des Teams
+
+Kontextabgrenzung
+Funktionalitäten die zum System gehören und in welcher Beziehung unser System zu Usern und externen Systemen steht
 
 ## Muster
 
@@ -168,3 +185,5 @@ Wenn wir die Dependencies der Schichten, die von der Geschäftslogik aufgerufen 
 - Repositories
     - Haben eine fachliche Schnittstelle in der Geschäftslogik
     - Werden in der Infrastrukturschicht implementiert
+    
+## Woche 3
