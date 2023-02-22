@@ -99,21 +99,31 @@ Nachteile:
 - Beteiligung des Kunden wichtig
 - Dokumentation weniger umfangreich
 
-## Domain Driven Design
+## Domain Driven Design DDD
 Ziel ist die Software möglichst nah an den Prozessen und Fachmodellen der Domäne anzulehnen
 
+### Domain
+Ein Bereich von Wissen, Einfluss oder Aktivität. Das Fachgebiet, auf das der Benutzer ein Programm anwendet, ist die *Domain* (Dt.: Domäne) der Software.
+
+### Model
+Ein *Model* (Dt.: Modell) ist ein System von Abstraktionen, das ausgewählte Aspekte einer Domäne beschreibt und zur Lösung von Problemen im Zusammenhang mit dieser Domäne verwendet werden kann.
+
 ### Ubiquitous Language
+Die Ubiquitous Language (Dt.: allgegenwärtige Sprache) ist eine Sprache, die um das Domänenmodell herum gruppiert ist und von allen Teammitgliedern in einem Bounded Context verwendet wird, um alle Aktivitäten des Teams mit der Software zu verbinden.
+Typische Hindernisse:
+- Fehlende Fachbegriffe
+- Unterschiedliche Bedeutungen
+- Übersetzungsfehler
+
+### Context
+Der Bereich, in dem ein Wort oder eine Aussage auftaucht und der dabei ihre Bedeutung bestimmt. *Aussagen über ein Modell können nur in einem Context (Dt.: Kontext) verstanden werden.*
+
 ### Bounded Context
+Der Bounded Context (Dt.: begrenzter Kontext) ist eine Beschreibung einer Grenze (typischerweise ein Subsystem oder die Arbeit eines bestimmten Teams), innerhalb derer ein bestimmtes Modell definiert und anwendbar ist.
 
 ## Domain Storytelling
-
-## Scrum
+Um Wissen über die Domäne zu sammeln, gibt es im DDD sogenannte Knowledge Crunching Techniken, wie u.a. Domain-Storytelling. Das ist ein Workshop-Format, bei dem einzelne Szenarien aus der Domäne *gemeinsam durchgesprochen* und *visualisiert* werden.
 
 # Woche 2
 
 
-# Vokabeln:
-
-- Domäne
-- Kopplung
-- Annotation
