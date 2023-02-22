@@ -2,6 +2,12 @@
 
 # Woche 1
 
+_Vorgehensmodelle:_
+- liefern Entwicklungs-Rahmen/Leitfaden/Plan
+- beschreiben wie Problem in Lösung überführt wird
+- logisch und zeitlich geordneter, strukturierter Ablauf
+- beschreibung von u.a. Ergebnissen, Rollen
+
 ## Sequentielle Vorgehensmodelle
 
 Wasserfall Modell
