@@ -157,6 +157,7 @@ Lösung: Das Repository-Pattern
 => Dadurch erhalten wir die Onion Architektur
 
 ## Die Onion-Architektur
+Wenn wir die Dependencies der Schichten, die von der Geschäftslogik aufgerufen werden, umdrehen, erhalten wir ein Architekturmuster, dass als Ports-and-Adapters (aka Onion Architektur) bezeichnet wird.
 
 ![onionschicht1](images/onionschicht1.png)
 ![onionschicht2](images/onionschicht2.png)
