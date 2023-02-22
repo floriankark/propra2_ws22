@@ -4,8 +4,6 @@
 
 ## Scrum
 
-![Agile-Produktentwicklung.webp](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6bb26046-d125-4643-ab4b-18ce65319f55/Agile-Produktentwicklung.webp)
-
 ### Rollen
 
 **Product Owner (PO)** stellen die Schnittstelle zu den Stakeholdern dar. Sind für das Einfordern der Anforderungen und die Priorisierung dieser verantwortlich.
