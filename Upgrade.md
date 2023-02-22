@@ -4,7 +4,7 @@
 
 ## Scrum
 
-![Agile-Produktentwicklung.png](Images/Agile-Produktentwicklung.png)
+![Agile-Produktentwicklung.webp](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6bb26046-d125-4643-ab4b-18ce65319f55/Agile-Produktentwicklung.webp)
 
 ### Rollen
 
