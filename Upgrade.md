@@ -68,3 +68,43 @@ Scrum muss hingehend ganz oder garnicht eingeführt werden.
 
 # Woche 2
 
+## Architekturmuster II
+
+### Pipes and Filters
+
+Pipes and Filters ist Teil der Data Flow Architektur, die das System als eine Reihe von Transformationen auf Datensätzen.
+
+Filter verändern Daten, die sie durch den Input erhalten. Pipes sind Verbindungen die Zugang zu den transformierten Daten geben.
+
+Die Anordnung der Filter können das Enresultat verändern (Mathematische Operationen).
+
+**Pro:**
+
+- Lose und Flexible Verknüpfungen zwischen Komponenten (Filtern)
+- Filter operieren unabhänig von anderen Filtern
+    - Kümmern sich nur um ihren Input und den Output von Daten
+- Austauschbarkeit von Filtern
+- Wiederverwendbarkeit
+    - Innerhalb des Systems öfter verwenden mit unterschiedlichen Datensätzen
+    - In anderen Systemen
+
+**Contra:**
+
+- Performance Einbußen, durch vorhandenem Verarbeitungs-Überschuss in jedem Filter
+    - Jeder Filter erhält Input der geparst werden muss
+    - Die eingegangenen Daten werden transformiert
+    - Daten werden über den Output abgegeben
+    - **Ist nur ein Nachteil, wenn diese Systeme als separete Programme eingesetzt werden (UNIX-Programme).**
+        - Es können auch Datenstrukturen ausgegeben und direkt im Input verarbeitet werden.
+- Kann nicht für interaktive Anwendung verwendet werden, da es zu langsam sein kann wenn viele Daten auf einmal verarbeitet werden müssen.
+
+ 
+
+### Microkernel
+
+Ist hilfreich, wenn Anwendungen im Nachhinein erweiterbar sein sollen. Dar Core-System hat Schnittstellen, die von Plugins genutzt werden können um weitere Funktionen hinzuzufügen.
+
+Pro:
+
+- Die Basisanwendung kann erweitert werden, ohne sie verändern zu müssen
+- Open/Close Prinzip auf Architekturebene
