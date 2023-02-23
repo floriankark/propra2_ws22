@@ -361,7 +361,7 @@ Monolith oder viele Microservices?
 ## URLs
 Eine URL besteht aus dem Namen eines Schemas, gefolgt von einem Doppelpunkt. Das Schema bestimmt, wie der Teil nach dem Doppelpunkt interpretiert wird
 
-![zerlegungen](images/zerlegungen.png)
+![url](images/url.png)
 
 - Authority ist die Adresse (typischerweise ein DNS-Name oder eine IP-Adresse) der für den Rest der URL zuständigen Entität.
 - Path und Query gemeinsam bilden den Bezeichner einer Ressource, die von der Authority verwaltet wird
@@ -377,7 +377,7 @@ Die Versionen 1.1 und 2 verwenden TCP als Transportprotokoll, Version 3 verwende
 
 ### Request und Response
  
-![requestandresponse](images/requestandresponse.png)
+![requestandresponse](images/requestandresponse.jpeg)
 
 Bedeutung der Statuscodes:
 ![statuscodes](images/statuscodes.png)
