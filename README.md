@@ -358,33 +358,49 @@ Monolith oder viele Microservices?
 
 # Woche 4
 
-## Grundlagen des World Wide Webs
-
 ## URLs
+Eine URL besteht aus dem Namen eines Schemas, gefolgt von einem Doppelpunkt. Das Schema bestimmt, wie der Teil nach dem Doppelpunkt interpretiert wird
 
+![zerlegungen](images/zerlegungen.png)
+
+- Authority ist die Adresse (typischerweise ein DNS-Name oder eine IP-Adresse) der für den Rest der URL zuständigen Entität.
+- Path und Query gemeinsam bilden den Bezeichner einer Ressource, die von der Authority verwaltet wird
+- 
 ## Das Hypertext Transfer Protocol (HTTP), Teil 1
-
 ### Versionen
+Es gibt drei HTTP-Versionen: 
+- HTTP/1.1: Klartextprotokoll
+- HTTP/2: binär
+- HTTP/3: binär
+
+Die Versionen 1.1 und 2 verwenden TCP als Transportprotokoll, Version 3 verwendet das Transportprotokoll QUIC. Sowohl TCP als auch QUIC sind zuverlässige Transportprotokolle
+
 ### Request und Response
+ 
+![requestandresponse](images/requestandresponse.png)
+
+Bedeutung der Statuscodes:
+![requestandresponse](images/requestandresponse.png)
+
 ### Struktur 
 HTTP ist nur für die logische Strukturierung zuständig, nicht für das Aussehen.
-Video:
-Titel
-Inhalt
-Medien
-- <img> Bilder, <video> Videos
-Listen
-- <ul> mit Reihenfolge, <ol> ohne Reihenfolge, <li> Punkte in Liste
-Tabellen
-- <table>
-- Bereiche <thead>, <tbody>, <tfoot>
-- Zeilen <tr>
-- Inhalte <th>, <td>
+
+### HTTP-Verben
+- Resourcen sind Dinge mit einer Identität, die mit einer URL adressierbar sind
+- Wir bekommen nicht die Resourcen sondern Repräsentationen
+- Welche Repräsentationen wir bekommen ist Verhandlungssache zwischen Client und Server
+- Die HTTP Verben GET, POST, PUT und DELETE u.a. bilden eine einheitliche Kommunikation
+
+![requestandresponse](images/requestandresponse.png)
 
 ## Accessibility
-### Screenreader
+(dt. oft Barrierefreiheit)
+Grundregeln:
+- Mausbedienung ermöglichen (Anwendung auch mit der Tastatur bedienbar)
+- Farbwahrnehmung und Kontraste beachten
+- Skalierbarkeit der Schriftgröße etc. ermöglichen
+- Bilder mit Alternativtexten versehen
+- Formularfelder mit Labeln versehen
+- Mit **Screenreader** Bedienbarkeit prüfen
 
-## Das Hypertext Transfer Protocol (HTTP), Teil 2
-### Was macht der Browser mit HTML?
-### HTTP-Verben
-### Formulare
+# Woche 5
