@@ -380,7 +380,7 @@ Die Versionen 1.1 und 2 verwenden TCP als Transportprotokoll, Version 3 verwende
 ![requestandresponse](images/requestandresponse.png)
 
 Bedeutung der Statuscodes:
-![requestandresponse](images/requestandresponse.png)
+![statuscodes](images/statuscodes.png)
 
 ### Struktur 
 HTTP ist nur für die logische Strukturierung zuständig, nicht für das Aussehen.
@@ -391,7 +391,7 @@ HTTP ist nur für die logische Strukturierung zuständig, nicht für das Aussehe
 - Welche Repräsentationen wir bekommen ist Verhandlungssache zwischen Client und Server
 - Die HTTP Verben GET, POST, PUT und DELETE u.a. bilden eine einheitliche Kommunikation
 
-![requestandresponse](images/requestandresponse.png)
+![httpVerben](images/httpVerben.png)
 
 ## Accessibility
 (dt. oft Barrierefreiheit)
