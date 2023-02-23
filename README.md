@@ -358,3 +358,33 @@ Monolith oder viele Microservices?
 
 # Woche 4
 
+## Grundlagen des World Wide Webs
+
+## URLs
+
+## Das Hypertext Transfer Protocol (HTTP), Teil 1
+
+### Versionen
+### Request und Response
+### Struktur 
+HTTP ist nur für die logische Strukturierung zuständig, nicht für das Aussehen.
+Video:
+Titel
+Inhalt
+Medien
+- <img> Bilder, <video> Videos
+Listen
+- <ul> mit Reihenfolge, <ol> ohne Reihenfolge, <li> Punkte in Liste
+Tabellen
+- <table>
+- Bereiche <thead>, <tbody>, <tfoot>
+- Zeilen <tr>
+- Inhalte <th>, <td>
+
+## Accessibility
+### Screenreader
+
+## Das Hypertext Transfer Protocol (HTTP), Teil 2
+### Was macht der Browser mit HTML?
+### HTTP-Verben
+### Formulare
