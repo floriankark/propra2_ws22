@@ -356,3 +356,5 @@ Monolith oder viele Microservices?
 - Zuerst mit einem oder einigen wenigen Monolithen starten
 - Bei mehreren Monolithen den Schnitt unbedingt entlang von Bounded-Contexts vornehmen
 
+# Woche 4
+
