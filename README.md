@@ -188,7 +188,6 @@ Wenn wir die Dependencies der Schichten, die von der Geschäftslogik aufgerufen 
     
 # Woche 3
 
-
 ## Zerlegungen eines Systems
 Zerlegung eines Gesamtsystems. Ein Software-System kann aus einem oder mehreren ausführbaren Programmen bestehen. Entweder Monolithen oder Microservice-Architekturen oder etwas dazwischen.
 
@@ -316,14 +315,44 @@ Einen Monolithen können wir nur vollständig skalieren. Wenn wir den Produktkat
     - Zustand kann in einer geteilten Datenhaltung abgelegt werden
 
 ## Teamstrukturen
+Conway's Law: Die Struktur von Systemen, die von einer Organisation entwickelt werden, die Kommunikationsstrukturen innerhalb der Organisationen widerspiegelt.
+
 Conway’s Law ist ganz besonders in Microservice-Architekturen von Bedeutung, aber auch in einem Monolithen können wir Modulgrenzen haben, die dann ebenfalls von der Organisationsstruktur mitbestimmt werden.
 
+Conway's Law positiv nutzen:
+Organisation so ändern, dass wenn wir sie kopieren, genau die Architektur bekommen die wir eigentlich planen. Ändere nicht die Software-Architektur ohne das Team anzupassen.
+Z.B. durch Zwei-Pizza-Teams (Teams die mit zwei Pizzen satt zu kriegen sind):
+- 2-8 Personen
+- alle rollen in einem Team beteiligt
+- feste Teams mit einer Aufgabe
+![pizzaTeam](images/pizzaTeam.png)
+
 ## Was ist denn eigentlich ein Microservice?
+Ein Microservice kann nicht kleiner sein als ein Aggregat. 
+Auf der anderen Seite soll ein Microservice von einem einzigen Team handhabbar sein, sodass wir das als Obergrenze für einen Service verwenden können.
+
+Microservices möglichst autonom entwickeln und betreiben. Erreichen wir dadurch, dass wir die Services fachlich schneiden und ihre Abhängigkeiten zu anderen Prozessen kontrollieren. Sodass ein Service genau eine Aufgabe möglichst vollständig umsetzt.
+
+
 ## Verteilte Monolithen
 Wenn wir eine Microservice-Architektur nicht sinnvoll schneiden, dann kann es uns passieren, dass wir einen verteilten Monolithen entwickeln.
 Verteilte Monolithen sind ein Riesenproblem, da die Nachteile von Monolithen mit den Nachteilen von Microservices kombiniert werden.
 
 ## Zwischen den Extremen
-Wir müssen uns übrigens nicht für einen Monolithen oder ein System aus Tausenden von Microservices entscheiden. Es gibt durchaus Platz für Lösungen, die dazwischen liegen. (siehe Self-Contained-Systems (SCS))
+Wir müssen nicht für entweder Monolithen oder Microservices entscheiden. Es gibt Lösungen, die dazwischen liegen. (siehe Self-Contained-Systems (SCS))
 
 ## Wie zerlegen wir denn nun ein System?
+
+Z.B. können wir fachliche und technische Zerlegung kombinieren, siehe folgende Struktur:
+![zerlegungen](images/zerlegungen.png)
+
+In den meisten Fällen ist die fachliche Zerlegung ein guter Startpunkt.
+- Fachlich geschnittene Teilsysteme lassen sich gut auf Teams verteilen.
+- Ein Monolith lässt sich dadurch im Nachhinein einfacher in Services zerlegen
+
+Technische Zerlegung in Frontend und Backend zuerst durchführen. Wichtig wenn wir getrennte Technologien verwenden wollen.
+
+Monolith oder viele Microservices?
+- Zuerst mit einem oder einigen wenigen Monolithen starten
+- Bei mehreren Monolithen den Schnitt unbedingt entlang von Bounded-Contexts vornehmen
+
