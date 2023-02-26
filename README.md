@@ -426,16 +426,94 @@ Der Request kommt beim DispatcherServlet an. Im Handler mapping wird die entspre
 ![alternativeSpringWebMvc](images/alternativeSpringWebMvc.png)
 Sollte man kein View-Template benutzen wollen, so kann man im Controller z.B. JSON oder einen String mit HTML Code zurückgeben und als Resonse verschicken.
 
-```
+```java
 @RequestMapping(method=RequestMethod.GET, path="/")
 public @ResponseBody String index(){
 	return "Hallo!";
 }
 ```
-```
+```java
 @RequestMapping(method=RequestMethod.GET, path="/")
 public void index(HttpServletResponse resp) throws IOException{
 	resp.setContentType("text/html");
 	resp.getWriter().printlin("Hello!");
 }
+```
+
+## Validierung
+
+### Objekt mit Validierung
+
+```java
+public class PersonForm {
+
+	**@NotNull**
+	**@Size(min=2, max=30)**
+	private String name;
+
+	**@NotNull**
+	**@Min(18)**
+	private Integer age;
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public String toString() {
+		return "Person(Name: " + this.name + ", Age: " + this.age + ")";
+	}
+}
+```
+
+### Controller mit @Valid
+
+```java
+@GetMapping("/")
+public String showForm(PersonForm personForm) {
+	return "form";
+}
+
+@PostMapping("/")
+public String checkPersonInfo(**@Valid PersonForm personForm, BindingResult bindingResult**) {
+
+	if (bindingResult.hasErrors()) {
+		return "form";
+	}
+
+	return "redirect:/results";
+}
+```
+
+### HTML mit Validierung
+
+```
+<form action="#" th:action="@{/}" th:object="${personForm}" method="post">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}" /></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Age:</td>
+            <td><input type="text" th:field="*{age}" /></td>
+            <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
+</form>
 ```
