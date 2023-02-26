@@ -442,6 +442,10 @@ public void index(HttpServletResponse resp) throws IOException{
 
 ## Validierung
 
+Eine Klasse von Sicherheitslücken im Bereich der Webanwendungen sind Injection-Angriffe. Es gibt unterschiedliche Varianten von Code-Injektion und Cross-Site-Scripting-Angriffen bis zu den SQL-Injections. Das gemeinsame Problem ist, dass Userinput nicht hinreichend überprüft wird.
+
+**Niemals darauf verlassen, dass Eingaben in einem Request valide sind!**
+
 ### Objekt mit Validierung
 
 ```java
