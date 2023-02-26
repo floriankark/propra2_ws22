@@ -420,3 +420,22 @@ Ist eine Klasse, in der wir das Verhalten einer Webanwendung für eine URL oder 
 Das Spring Framework stellt über die Servlet-Abstraktion hinaus eine höherwertige Abstraktion bereit. Unter der Haube verwendet Spring allerdings auch Servlets.
 
 
+![springWebMvc](images/springWebMvc.png)
+Der Request kommt beim DispatcherServlet an. Im Handler mapping wird die entsprechende Methode zurückgegeben, die die angeforderte URL im Request verarbeiten kann. Danach wird diese Methode im jeweiligen Controller aufgerufen, welcher ein Model (HashMap mit Key-Value Paaren) und ein Logischen View Name (Name einer HTML-Datei in der bestimmte Daten erstetzt werden können). Im ViewResolver wird das View Template anhand des Namen geladen  und letztlich im DispatchServlet mit dem Model vereinigt und als Response zurückgegeben.
+
+![alternativeSpringWebMvc](images/alternativeSpringWebMvc.png)
+Sollte man kein View-Template benutzen wollen, so kann man im Controller z.B. JSON oder einen String mit HTML Code zurückgeben und als Resonse verschicken.
+
+```
+@RequestMapping(method=RequestMethod.GET, path="/")
+public @ResponseBody String index(){
+	return "Hallo!";
+}
+```
+```
+@RequestMapping(method=RequestMethod.GET, path="/")
+public void index(HttpServletResponse resp) throws IOException{
+	resp.setContentType("text/html");
+	resp.getWriter().printlin("Hello!");
+}
+```
