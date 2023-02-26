@@ -404,3 +404,19 @@ Grundregeln:
 - Mit **Screenreader** Bedienbarkeit prüfen
 
 # Woche 5
+
+## Webanwendungen in Java
+
+### Servlet 
+Ist eine Klasse, in der wir das Verhalten einer Webanwendung für eine URL oder eine Gruppe von URLs implementieren. Der Servlet-Container stellt für uns die komplette Infrastruktur bereit und kümmert sich um die Kommunikation mit einem Client über HTTP
+
+- Der Webserver verteilt Anfragen aufgrund einer Konfiguration, in der URLs auf Servlets abgebildet werden.
+- Der Webserver ruft in dem Servlet eine der doXXX-Methoden auf. Welche Methode aufgerufen wird, hängt vom HTTP-Verb des Requests ab.
+- Die Methode hat Zugriff auf die Request-Daten (URL, Parameter, Header, ...) über ein Objekt vom Typ HttpServletRequest.
+- Die Methode ändert den Zustand eines Objekts vom Typ HttpServletResponse. Dort können Header gesetzt oder der Body der Antwort erzeugt werden.
+- Wenn die Methode beendet ist, wird aus dem geänderten HttpServletResponse-Objekt eine Antwort für den Browser erzeugt und abgeschickt.
+
+## Webanwendungen mit Spring Web MVC
+Das Spring Framework stellt über die Servlet-Abstraktion hinaus eine höherwertige Abstraktion bereit. Unter der Haube verwendet Spring allerdings auch Servlets.
+
+
