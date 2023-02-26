@@ -447,12 +447,12 @@ public void index(HttpServletResponse resp) throws IOException{
 ```java
 public class PersonForm {
 
-	**@NotNull**
-	**@Size(min=2, max=30)**
+	@NotNull
+	@Size(min=2, max=30)
 	private String name;
 
-	**@NotNull**
-	**@Min(18)**
+	@NotNull
+	@Min(18)
 	private Integer age;
 
 	public String getName() {
