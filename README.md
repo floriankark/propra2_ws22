@@ -524,42 +524,9 @@ public String checkPersonInfo(**@Valid PersonForm personForm, BindingResult bind
 
 # Woche 6
 
-## Testing
-Was können Tests:
-- Regression verhindern
-- Ausführbare Spezifikation/Dokumentation/Codebeispiele geben
-- Sicherheitsnetz bei Änderungen sein
-
-Wie müssen Tests sein:
-- einfacher sein als Produktivcode
-- optimalerweise linearer Code
-- keine komplizierte Logik
-- Struktur nach AAA (Arange (Kontext herstellen), Act (Code ausführen), Assert (Ergebnis prüfen))
-- Immer nur Verhalten prüfen, keine Implementierungsdetails
-- FIRST Prinzipien
-
-**F.I.R.S.T**
-- **F**ast
-- **I**solated and Independent
-- **R**epeatable
-- **S**elf-Validating
-- **T**imely
-
 ### Testpyramide
 
 ![testpyramide](images/testpyramide.png)
 
-### JUnit und AssertJ in Gradle konfigurieren
-```
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-}
 
-test {
-    useJUnitPlatform()
-}
-```
-
-### Tests schreiben mit AssertJ
 
