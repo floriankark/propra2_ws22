@@ -524,9 +524,55 @@ public String checkPersonInfo(**@Valid PersonForm personForm, BindingResult bind
 
 # Woche 6
 
-### Testpyramide
+## Testpyramide
 
 ![testpyramide](images/testpyramide.png)
 
+## Was können wir testen?
+
+![testtabelle](images/testtabelle.png)
+
+### WebMvctest
+Für Tests der Webschnittstelle annotieren wir Test-Klasse mit @WebMvcTest-Annotation. Damit konfigurieren wir JUnit und Spring so, dass nur ganz bestimmte Klassen der Anwendung in den Spring-Kontext geladen werden. 
+Nur Klassen mit @Controller, @RestController und @ControllerAdvice werden für die Dependency Injection geladen. Alle anderen Klassen aus unserer Anwendung, die in einem unserer Controller benötigt werden, müssen wir selber bereitstellen. In den allermeisten Fällen wollen wir diese Klassen durch Mocks ersetzen.
 
 
+### Controller testgetrieben entwickeln
+Wenn wir einen Test für die Klasse schreiben wollen und wir @WebMvcTest verwenden, dann können wir uns im Test ein Objekt vom Typ MockMvc injizieren lassen. Dieses Objekt bildet unsere Schnittstelle zum Weblayer. Wir können es verwenden, um Requests zu simulieren, ohne dabei den echten Servlet-Container zu verwenden.
+
+```
+@WebMvcTest //oder @WebMvcTest(LottoController.class) um nicht alle Controller in Kontext zu bringen
+public class ControllerTest {
+
+  @Autowired
+  MockMvc mvc;
+  
+  @MockBean
+  LottoService service;
+
+  @Test
+  @DisplayName("")
+  void test_lotto() throws Exception {
+    when(service.getTipp()).thenReturn(List.of(8, 15, 22, 27, 39, 41));
+    MvcResult tipp = mvc.perform(MockMvcRequestBuilders.get("/tipp"))
+        .andReturn();
+    ...
+  }
+```
+
+Hier simuliert MockMvc-Objekt einen Request.
+@MockBean damit das Framework ein Mock-Objekt vom Typ LottoService für die Injektion verwendet und wir das Objekt dann im Test konfigurieren können.
+Mit andExpect-Methode überprüft man bestimmte Assertions der Antwort des Controllers.
+Mit andReturn bekommen wir ein MvcResult, welches die gesamten Informationen der HTTP-Response kapselt und das wir dann genauer inspizieren können.
+
+#### MockMvcResultMatchers
+Nachdem wir die perform-Methode mit einem MockHttpServletRequestBuilder aufgerufen haben, wird der Controller-Code ausgeführt und wir bekommen ein Ergebnis in Form einer Instanz von ResultActions zurück. Das Objekt stellt zwei wesentliche Methoden zur Verfügung, mit denen wir Assertions formulieren können.
+
+Mit andReturn eine Instanz von MvcResult besorgen. Interesannte Methoden:
+- getResponse gibt uns ein MockHttpServletResponse-Objekt zurück, welches uns Informationen wie Header, Status und Body der HTTP-Antwort bereitstellt.
+- getModelAndView gibt uns das ModelAndView-Objekt zurück, das Spring verwendet hat, um die Antwort auf den Request zu produzieren.
+
+Ausschnitt mit einigen besonders wichtigen Matchern (wie z.B. MockMvcResultMatchers.status().isOk()):
+![matchertabelle](images/matchertabelle.png)
+
+# Woche 7
