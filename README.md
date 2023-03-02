@@ -521,3 +521,437 @@ public String checkPersonInfo(**@Valid PersonForm personForm, BindingResult bind
     </table>
 </form>
 ```
+
+# Woche 6
+
+## Testpyramide
+
+![testpyramide](images/testpyramide.png)
+
+## Was können wir testen?
+
+![testtabelle](images/testtabelle.png)
+
+### WebMvctest
+Für Tests der Webschnittstelle annotieren wir Test-Klasse mit @WebMvcTest-Annotation. Damit konfigurieren wir JUnit und Spring so, dass nur ganz bestimmte Klassen der Anwendung in den Spring-Kontext geladen werden. 
+Nur Klassen mit @Controller, @RestController und @ControllerAdvice werden für die Dependency Injection geladen. Alle anderen Klassen aus unserer Anwendung, die in einem unserer Controller benötigt werden, müssen wir selber bereitstellen. In den allermeisten Fällen wollen wir diese Klassen durch Mocks ersetzen.
+
+
+### Controller testgetrieben entwickeln
+Wenn wir einen Test für die Klasse schreiben wollen und wir @WebMvcTest verwenden, dann können wir uns im Test ein Objekt vom Typ MockMvc injizieren lassen. Dieses Objekt bildet unsere Schnittstelle zum Weblayer. Wir können es verwenden, um Requests zu simulieren, ohne dabei den echten Servlet-Container zu verwenden.
+
+```
+@WebMvcTest //oder @WebMvcTest(LottoController.class) um nicht alle Controller in Kontext zu bringen
+public class ControllerTest {
+
+  @Autowired
+  MockMvc mvc;
+  
+  @MockBean
+  LottoService service;
+
+  @Test
+  @DisplayName("")
+  void test_lotto() throws Exception {
+    when(service.getTipp()).thenReturn(List.of(8, 15, 22, 27, 39, 41));
+    MvcResult tipp = mvc.perform(MockMvcRequestBuilders.get("/tipp"))
+        .andReturn();
+    ...
+  }
+```
+
+Hier simuliert MockMvc-Objekt einen Request.
+@MockBean damit das Framework ein Mock-Objekt vom Typ LottoService für die Injektion verwendet und wir das Objekt dann im Test konfigurieren können.
+Mit andExpect-Methode überprüft man bestimmte Assertions der Antwort des Controllers.
+Mit andReturn bekommen wir ein MvcResult, welches die gesamten Informationen der HTTP-Response kapselt und das wir dann genauer inspizieren können.
+
+#### MockMvcResultMatchers
+Nachdem wir die perform-Methode mit einem MockHttpServletRequestBuilder aufgerufen haben, wird der Controller-Code ausgeführt und wir bekommen ein Ergebnis in Form einer Instanz von ResultActions zurück. Das Objekt stellt zwei wesentliche Methoden zur Verfügung, mit denen wir Assertions formulieren können.
+
+Mit andReturn eine Instanz von MvcResult besorgen. Interesannte Methoden:
+- getResponse gibt uns ein MockHttpServletResponse-Objekt zurück, welches uns Informationen wie Header, Status und Body der HTTP-Antwort bereitstellt.
+- getModelAndView gibt uns das ModelAndView-Objekt zurück, das Spring verwendet hat, um die Antwort auf den Request zu produzieren.
+
+Ausschnitt mit einigen besonders wichtigen Matchern (wie z.B. MockMvcResultMatchers.status().isOk()):
+![matchertabelle](images/matchertabelle.png)
+
+# Woche 7
+
+## Zustand und HTTP
+HTTP ist Zustandsfrei. Entweder muss der komplette Zustand mitgeschickt werden oder man verwendet einen Bezeichner, der den Zustand auf dem Server identifiziert. Zustand auf dem Server verbraucht Speicher → Dos oder DDos Attacken.
+
+Zustandstransfer:
+- Pfad + requestparameter
+- Request Body
+- Response Body
+- Cookies
+
+Wir sollten vermeiden, Zustand auf dem Server halten zu müssen. Eine Möglichkeit dafür ist es, den relevanten Kontext für eine Anfrage bei jedem Request zu übertragen. Diese Übertragung können wir per Parameter oder per Cookie durchführen.
+
+### Hidden Fields
+
+Hilfreich bei Multistage Formularen. Das n+1-Formular erhält die Informationen vom Server aus den vorherigen n Formularen und schickt zusammen mit den neuen zusätzlichen Informationen an den Server zurück.
+
+```java
+<form method="post" th:action="@{/page2}">
+	<input type="hidden" name="name" th:value="${name}">
+	<label>Twitter Handle:
+		<input type="text" name="twitter">
+	</label>
+	<buttom type="submit">Ende</button>
+</form>
+```
+
+### Cookies
+
+Key-Value-Paar im Browser und ist Eigentum des Clients. Werden immer mit gesendet, nachdem sie gesetzt wurden.
+
+```java
+@GetMapping("/")
+public String counter(
+	HttpResponse resp, 
+	Model m, 
+	@CookieValue(name="counter", defaultValue="0") int count){
+	m.addAttribute("count", count);
+
+	String newValue = String.valueOf(count+1);
+	Cookie counter = new Cookie("counter", newValue);
+	counter.setHttpOnly(true);
+	counter.setSecure(true);
+	response.addCookie(counter);
+
+	return "main";
+}
+```
+
+###
+
+## Sessions
+Arten von Zustand auf dem Server:
+- Persistenter Zustand durch Speichern als Ressource (z.B. Warenkorb)
+- Flüchtiger Zustand (Session)
+
+
+- Annotation für die Controller Klasse
+- `@SessionAttributes({"log", "username"})` Array mit Strings, die wir länger speichern wollen und erhlten bleiben wenn wir die ins Model geben
+- Model-Einträge bleiben erhalten bis Session ausläuft 
+
+`@ModelAttribute` kann an Methoden und Parametern geschrieben werden. Sollte im Model ein bestimmter Wert nicht gesetzt sein, wird die Methode aufgerufen, die mit @ModelAttribute annotiert ist und erzeugt dann einen Wert.
+
+```java
+@ModelAttribute("log")
+public LogEntry createModelAttribute(HttpServletRequest req){
+	String ip = req.getRemoteAddr();
+	return new LogEntry(ip);
+}
+
+@GetMapping("/get")
+public String getObjectFromModel (@ModelAttribute("log") LogEntry log){
+	log.addLog("Request get");
+	return "model";
+}
+```
+
+`@SessionAttribute` ist eine Annotation für die Controller-Klasse. In der Annotation können Schlüssel-Namen definiert werden für das Modell: `@SessionAttribute({”log”, “username”})`
+
+`@SessionScope` erstellt eine Instanz des Controller pro Session. Damit können dann Variablen in der Klasse gespeichert werden (Zustand per Instanzvariable).
+
+→ Nachteil: Benötigt mehr Ressourcen.
+
+## Sicherheit von Webanwendungen
+### Verschlüsselte Kommunikation
+
+### Symmetrische Verschlüsselung
+
+Nachricht wird mit dem geteilten Schlüssel verschlüsselt und kann auch nur mit dem selben Schlüssel wieder lesbar gemacht werden. 
+
+- Schnell
+- Setzt vorraus, dass beide Parteien einen gemeinsamen, geheimen Schlüssel haben
+    - Pro Kommunikationspartner wird ein Schlüssel gebraucht
+    - Der Schlüssel muss sicher verwahrt werden
+    - Der Schlüssel muss sicher ausgetauscht werden
+
+### Asymmetrische Verschlüsselung
+
+Nachricht von Partei A wird mit dem Publickey der Partei B verschlüsselt. Dieser ist frei verfügbar. Die Nachricht von A kann dann nur mit dem Privatekey der von B entschlüsselt werden.
+
+- Langsam
+- Alle die mit Partei B reden wollen, können denselben Publickey verwenden
+- Partei B muss seinen Privatekey sicher speichern
+
+Eine Kombination von den beiden Verfahren ermöglicht einen sicheren Austausch des für die symmetrische Verschlüsselung notwendigen geteilten Schlüssel.
+
+### Signaturen
+
+Um sicher zu stellen, dass der Publickey der Parteil B der echte Schlüssel ist, werden Nachrichten Signiert. Nachrichten können mit dem Privatekey verschlüsselt werden und mit dem Publickey wieder entschlüsselt werden.
+
+Wenn Partei A nun eine Nachricht senden will, so wird die Nachricht zuerst durch eine Hashfunktion codiert und mit dem Privatekey von Partei A verschlüsselt. Zusammen mit der gehashten Nachricht und der Nachricht im Klartext (oder auch verschlüsselt) werden die beiden Nachrichten an Partei B verschickt. Partei B entschlüsselt mit dem Publickey von Partei A die gehashte und mit dem Privatekey verschlüsselte Nachricht von Partei A. Die Klartextnachricht wird mit der selben Hashfunktion gehasht und mit der entschlüsselten Nachricht verglichen.
+
+### Zertifikate
+
+Serverbetreiber erstellen einen Certificate-Signing-Request (Domain, Organisation, Adresse,...) mit dem Publickey des Servers. Die CA signiert dann das Zertifikat mit ihrem Privatekey.
+
+Rootzertifikate sind fest in Betriebssystemen bzw. Browsern eingebaut, denen direkt vertraut wird.
+
+## CSRF
+
+### Angriff
+
+Wenn der Benutzer auf einer bösartigen Website landet, kann diese versuchen einen Request auf eine für CSRF anfällige Website zu senden. 
+
+In dem Request befinden sich standardmäßig alle Cookies die im Browser zu der Website gespeichert sind. 
+
+Die vulnerable Website hält dann diesen Request für legitim. 
+
+Nun ist es möglich, dass der Benutzer durch diesen Request authetifiziert. Dies ermöglicht dem Angreifer Änderungen auf der Seite vorzunehmen (Mail ändern, Überweisung tätigen, ...).
+
+### Abwehr
+
+Jedes auf der Webiste verfügbares Formular erhält ein benutzerspeziefischen Token. Wird der richtige Token beim abschicken des Formulars mitgeschickt, ist die Anfrage ligitim. 
+
+Der Token kann nicht abgegriffen werden: 
+
+- Der Angreifer könnte selber versuchen die Website aufzurufen, jedoch bekommt er einen für sich speziefischen Token.
+- Sollte er versuchen mittels des Browsers des Benutzers den Token zu erhalten, wird dies durch die Same-Origin-Policy und CORS (Cross-Origin Resource Sharing) Einstellungen verhindert.
+    - Javascript kann wegen der Same-Origin-Policy ****von der bösartigen Website keinen Request an die vulnerabe Website stellen.
+
+In Spring kann man dies mit einem hidden field erreicht werden:
+
+```java
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+```
+
+oder man verwendet im `form` tag das attribut `th:action="@{/...}"`.
+
+## Cross Site Scripting
+
+### Reflect XSS
+
+Schadcode wird dem Server geschickt und dieser integriert den Schadcode in der Seite. Der Schadcode wird nun im Browser gerendert und ausgeführt.
+
+### Stored XSS
+
+Schadcode wird in der Datenbank gespeichert und jedes Mal mitgeliefert.
+
+## Zugriffskontrolle
+
+### Authentifizierung
+
+Methoden zur Authentifizierung **immer mit HTTPS**:
+
+- Basic HTTP-Authentication (Kein serverseitiger Logout möglich)
+- Session Cookie
+    - Benuzter erhält ein Session Cookie. Wenn der Benuzter sich erfolgreich authentifiziert, wird serverseitig sich gemerkt, dass er auf bestimmte Ressourcen Zugriff hat.
+    - Beim Logout kann die Session auf dem Server gelöscht werden. Versucht der Benutzer auf eine geschützte Ressource zuzugreifen wird weiterhin der veraltete Session Cookie mitgesendet. Der Benutzer wird dann wieder zum Login geleitet.
+    - Probleme entstehen bei Proxies und Load Balancern. Die Sessions müssen entweder zwischen den Anwendungen geteilt werden, oder die Sessions werden im Proxy gehandhabt.
+- Access Token (Stateless)
+    - Der Client erhält einen Cookie mit allen für die Session notwendigen Informationen (Benutzername, Rollen, Sessiondauer, ...)
+    - Der Inhalt des Cookies wird vom Server signiert. Es wird ein geheimer Schlüssel gewählt der zusammen mit dem Payload des Cookies gehasht wird. Dem Client wird der klartext Payload und der gehashte Payload mit Schlüssel gegeben.
+    - Der Server überprüft die Güligkeit des Tokens. Berechnet mit dem klartext Payload und dem geheimen Schlüssel einen Hashwert und vergleicht diesen mit dem mitgesendeten gehashten Payload.
+    - In der Anwendung kann entweder mit Symmetrischer Signatur oder Asymmetrischer Signatur gearbeitet werden
+    - Nun kann auch ein Proxy verwendet werden, um einfache Überprüfungen vorzunehmen (Token vorhanden oder nicht) oder der Proxy übernimmt die Validierung des Tokens.
+    - JWT (JSON Webtoken)
+    - OAuth 2
+
+### Reverse Proxy
+Statt die Verschlüsselung direkt zwischen Client und Server aufzubauen, wird die TLS-Verschlüsselung oft durch eine Netzwerk-Komponente wie einen reverse Proxy gehandhabt. Dadurch dass wir einen Proxy verwenden, ist das Thema TLS an den Betrieb ausgelagert worden.
+![reverseProxy](images/reverseProxy.png)
+
+Vorteile:
+- Wir können innerhalb des Systems Änderungen vornehmen, ohne dass das nach außen sichtbar wird.
+- In Browsern gibt eine Sicherheitsmaßnahme, die sogenannte Same-Origin-Policy, die verhindert, dass JavaScript auf Inhalte zugreift, der nicht von derselben Quelle (Protokoll, Host und Port müssen übereinstimmen) kommt wie das JavaScript.
+- Der Proxy kann das Ausliefern von statischen Ressourcen (Bilder, CSS, JavaScript, …) übernehmen.
+- Der Proxy ist die einzige Stelle für eingehende Requests, wir können dort also Sicherheitsmaßnahmen unterbringen.
+- Wir konfigurieren die TLS-Verschlüsselung vollständig im Proxy.
+
+## Spring Security
+
+### Authentication
+
+In Spring arbeitet mit dem Spring-Security-Filter. Dieser Filter sitzt vor den Servlets, die die Requests verarbeiten. Innerhalb dieses Filters sitzt ein Authentication-Filter, der sich um die Authentifizierung kümmert. Alle Requests werden von ihm abgefangen und entsprechend der Konfiguration überprüft. Filter können so konfiguriert werden, dass sie nur bestimmte URL’s Authentifizierung benötigen, wie z.B. `/admin/XXX`. 
+
+![springSecurityFilter](images/springSecurityFilter.png)
+
+Die Zugangsinformationen werden innerhalb eines `Authentication` Objekts an den `AuthenticationManager` weitergeleitet. Dieser leitet das Objekt an den entsprechenden `AuthenticationProvider` weiter, der für die speziefische Anmeldemethode, die Authentifizierung übernimmt. Der `AuthenticationProvider` gibt dem `UserDetailsService` den Benutzernamen und erhält z.B. aus der Datenbank ein `UserObjekt`, welches bei erfolgreicher Anmeldung in das anfängliche `Authentication` Objekt als Principal gespeichert wird.
+
+![authentificationManager](images/authentificationManager.png)
+
+Im Controller kann auf diesen Principal mittels Injektion zugegriffen werden:
+
+```java
+@ModelAttribute("handle")
+String handle(Principal user) {
+    return user.getName();
+}
+```
+
+![springSecurityApp](images/springSecurityApp.png)
+
+### In-Memory Authentication
+
+Für eine Inmemory Authentifizierung konfiguriert man den `AuthenticationManagerBuilder` direkt. Mittels Injection erhält man ihn, indem man eine Klasse `WebSecurityConfiguration` mit der Klasse `WebSecurityConfigurerAdapter` erweitert, mit `@EnableWebSecurity` annotiert und dort die Methode `configure` überschreibt. Hier werden die Benutzer definiert (Benutzername, Password, Rolle). Zusätzlich muss eine Bean definiert werden, die das Passwordencoding handhabt.
+
+### GitHub Authentication
+
+Um GitHub Authentifizierung zu verwenden müssen folgende Klassen erstellt werden:
+
+`MethodSecurityConfiguration`
+
+```java
+@Configuration
+@EnableGlobalMethodSecurity(
+    prePostEnabled = true,
+    securedEnabled = true,
+    jsr250Enabled = true)
+public class MethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
+}
+```
+
+`SecurityConfiguration`
+
+```java
+@Configuration
+public class SecurityConfiguration {
+
+  @Bean
+  protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+    return new RegisterSessionAuthenticationStrategy(
+        new SessionRegistryImpl());
+  }
+
+  @Bean
+  public OAuth2AuthorizedClientManager authorizedClientManager(
+      ClientRegistrationRepository clientRegistrationRepository,
+      OAuth2AuthorizedClientRepository authorizedClientRepository) {
+
+    OAuth2AuthorizedClientProvider authorizedClientProvider =
+        OAuth2AuthorizedClientProviderBuilder.builder()
+            .authorizationCode()
+            .refreshToken()
+            .clientCredentials()
+            .password()
+            .build();
+
+    DefaultOAuth2AuthorizedClientManager authorizedClientManager =
+        new DefaultOAuth2AuthorizedClientManager(
+            clientRegistrationRepository, authorizedClientRepository);
+    authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
+
+    return authorizedClientManager;
+  }
+}
+```
+
+`WebSecurityConfiguration`
+
+```java
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+  private final List<String> tutoren;
+  private final List<String> organisatoren;
+
+	//Hier erhält man die Rollen aus der application.yml Datei
+  public WebSecurityConfiguration(
+      @Value("${rollen.tutoren}") List<String> tutoren,
+      @Value("${rollen.organisatoren}") List<String> organisatoren) {
+    this.tutoren = List.copyOf(tutoren);
+    this.organisatoren = List.copyOf(organisatoren);
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+
+    HttpSecurity security = http.authorizeRequests(a -> a
+        .antMatchers("/css/*", "/js/*", "/error", "/stats").permitAll()
+        .anyRequest().authenticated()
+    );
+    security
+        .logout()
+        .clearAuthentication(true)
+        .deleteCookies()
+        .invalidateHttpSession(true)
+        .permitAll()
+        .and()
+        .oauth2Login().userInfoEndpoint().userService(createUserService());
+  }
+
+  private OAuth2UserService<OAuth2UserRequest, OAuth2User> createUserService() {
+    return new OAuth2UserService<>() {
+
+      final DefaultOAuth2UserService defaultService = new DefaultOAuth2UserService();
+
+      @Override
+      public OAuth2User loadUser(OAuth2UserRequest userRequest)
+          throws OAuth2AuthenticationException {
+        OAuth2User oauth2User = defaultService.loadUser(userRequest);
+
+        Map<String, Object> attributes = oauth2User.getAttributes();
+
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
+
+        String login = attributes.get("login").toString();
+
+        if (tutoren.contains(login)) {
+          authorities.add(new SimpleGrantedAuthority("ROLE_TUTOR"));
+        }
+        if (organisatoren.contains(login)) {
+          authorities.add(new SimpleGrantedAuthority("ROLE_ORGANISATOR"));
+        }
+
+        return new DefaultOAuth2User(authorities, attributes, "login");
+      }
+    };
+  }
+}
+```
+
+### Authorization
+
+Man kann bestimmten Routen mit der Annotaion `@Secured("ROLE_XXX")` absichern. Dadurch hat dann eine bestimmte Rolle nur auf Klassen oder Methoden zugriff die mit der selben Annotation annotiert sind. Dafür muss eine `MethodSecurityConfiguration` geschrieben werden:
+
+```java
+@Configuration
+@EnableGlobalMethodSecurity(
+	prePostEnabled = true,
+	securedEnabled = true,
+	jsr250Enabled = true)
+public class MethodSecurityConfiguration extends GlobalMethodSecurityConfiguration { }
+```
+
+Danach kann folgendes benutzt werden:
+
+```java
+@Secured("ROLE_ADMIN")
+@GetMapping("/admin")
+public String admin() {
+	return "admin";
+}
+```
+
+### Testing Authorization
+
+Es gibt einige Details zu beachten:
+
+- In der build.gradle Datei muss der Test-Support für Spring Security eingeschaltet werden.
+- In der Testklasse müssen wir die Security-Konfigurationen mit der @Import-Annotation inkludieren.
+
+Wir können dann für die Tests mit @WithMockOAuth2User konfigurieren, mit welchen Userdaten wir den Test ausführen wollen.
+Ein Beispiel für einen solchen Test ist:
+
+```
+@Test
+@WithMockOAuth2User(login = "JoeSchmoe")
+@DisplayName("Die private Seite ist für authentifizierte User erreichbar")
+void test_3() throws Exception {
+  mvc.perform(get("/private"))
+      .andExpect(status().isOk())
+      .andExpect(model().attribute("name", "JoeSchmoe"));
+}
+```
+
+# Woche 8
+
+## Datenbanken
