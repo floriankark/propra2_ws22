@@ -764,13 +764,17 @@ Vorteile:
 - Der Proxy ist die einzige Stelle für eingehende Requests, wir können dort also Sicherheitsmaßnahmen unterbringen.
 - Wir konfigurieren die TLS-Verschlüsselung vollständig im Proxy.
 
-## Security
+## Spring Security
 
 ### Authentication
 
 In Spring arbeitet mit dem Spring-Security-Filter. Dieser Filter sitzt vor den Servlets, die die Requests verarbeiten. Innerhalb dieses Filters sitzt ein Authentication-Filter, der sich um die Authentifizierung kümmert. Alle Requests werden von ihm abgefangen und entsprechend der Konfiguration überprüft. Filter können so konfiguriert werden, dass sie nur bestimmte URL’s Authentifizierung benötigen, wie z.B. `/admin/XXX`. 
 
+![springSecurityFilter](images/springSecurityFilter.png)
+
 Die Zugangsinformationen werden innerhalb eines `Authentication` Objekts an den `AuthenticationManager` weitergeleitet. Dieser leitet das Objekt an den entsprechenden `AuthenticationProvider` weiter, der für die speziefische Anmeldemethode, die Authentifizierung übernimmt. Der `AuthenticationProvider` gibt dem `UserDetailsService` den Benutzernamen und erhält z.B. aus der Datenbank ein `UserObjekt`, welches bei erfolgreicher Anmeldung in das anfängliche `Authentication` Objekt als Principal gespeichert wird.
+
+![authentificationManager](images/authentificationManager.png)
 
 Im Controller kann auf diesen Principal mittels Injektion zugegriffen werden:
 
@@ -781,7 +785,7 @@ String handle(Principal user) {
 }
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f838bbbb-6435-4ee4-93ca-5cbad16d1e3d/Untitled.png)
+![springSecurityApp](images/springSecurityApp.png)
 
 ### In-Memory Authentication
 
@@ -927,4 +931,27 @@ public String admin() {
 }
 ```
 
+### Testing Authorization
+
+Es gibt einige Details zu beachten:
+
+- In der build.gradle Datei muss der Test-Support für Spring Security eingeschaltet werden.
+- In der Testklasse müssen wir die Security-Konfigurationen mit der @Import-Annotation inkludieren.
+
+Wir können dann für die Tests mit @WithMockOAuth2User konfigurieren, mit welchen Userdaten wir den Test ausführen wollen.
+Ein Beispiel für einen solchen Test ist:
+
+```
+@Test
+@WithMockOAuth2User(login = "JoeSchmoe")
+@DisplayName("Die private Seite ist für authentifizierte User erreichbar")
+void test_3() throws Exception {
+  mvc.perform(get("/private"))
+      .andExpect(status().isOk())
+      .andExpect(model().attribute("name", "JoeSchmoe"));
+}
+```
+
 # Woche 8
+
+## Datenbanken
