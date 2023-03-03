@@ -8,6 +8,7 @@ class BlutalkoholwertBerechnerApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

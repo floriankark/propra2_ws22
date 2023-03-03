@@ -26,7 +26,7 @@ public class widmarkController {
             return "index";
         }
         m.addAttribute("w", w);
-        m.addAttribute("ergebnis", String.format("%.2f", w.getWidmark()));
+        m.addAttribute("ergebnis", w.getWidmark());
         m.addAttribute("hatErgebnis", true);
         return "index";
     }
