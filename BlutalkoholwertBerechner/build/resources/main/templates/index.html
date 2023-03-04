@@ -39,41 +39,7 @@
                 <small class="text-danger" th:if="${#fields.hasErrors('gewicht')}" th:errors="*{gewicht}">Fehler!</small>
               </div>
 
-              <div class="form-group">
-                <label for="bier">Bier:</label>
-                <input type="number" class="form-control" name="bier" id="bier" placeholder="in ml" value="0" th:field="*{bier}">
-                <small class="text-danger" th:if="${#fields.hasErrors('bier')}" th:errors="*{bier}">Fehler!</small>
-              </div>
-
-              <div class="form-group">
-                <label for="wein">Wein:</label>
-                <input type="number" class="form-control" name="wein" id="wein" placeholder="in ml" value="0" th:field="*{wein}">
-                <small class="text-danger" th:if="${#fields.hasErrors('wein')}" th:errors="*{wein}">Fehler!</small>
-              </div>
-
-              <div class="form-group">
-                <label for="korn">Korn:</label>
-                <input type="number" class="form-control" name="korn" id="korn" placeholder="in ml" value="0" th:field="*{korn}">
-                <small class="text-danger" th:if="${#fields.hasErrors('korn')}" th:errors="*{korn}">Fehler!</small>
-              </div>
-
-              <div class="form-group">
-                <label for="vodka">Vodka:</label>
-                <input type="number" class="form-control" name="vodka" id="vodka" placeholder="in ml" value="0" th:field="*{vodka}">
-                <small class="text-danger" th:if="${#fields.hasErrors('vodka')}" th:errors="*{vodka}">Fehler!</small>
-              </div>
-
-              <div class="form-group">
-                <label for="whiskey">Whiskey:</label>
-                <input type="number" class="form-control" name="whiskey" id="whiskey" placeholder="in ml" value="0" th:field="*{whiskey}">
-                <small class="text-danger" th:if="${#fields.hasErrors('whiskey')}" th:errors="*{whiskey}">Fehler!</small>
-              </div>
-
               <input type="submit" class="btn btn-primary" value="Submit">
-
-              <p th:if="${!#fields.hasAnyErrors() and hatErgebnis}">Ihr Blutalkohol beträgt <strong><span th:text="${#numbers.formatDecimal(ergebnis,1,2)}">3,21</span></strong> Promille</p>
-              <!-- <span th:text="${ergebnis}">Hier steht das Ergebnis</span> -->
-              <!-- <span th:if="${!hatErgebnis}">Hier steht das Ergebnis</span> -->
 
             </form>
 

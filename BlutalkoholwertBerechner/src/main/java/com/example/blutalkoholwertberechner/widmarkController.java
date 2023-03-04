@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
+@SessionAttributes({"geschlecht", "gewicht"})
 public class widmarkController {
     @GetMapping("/")
     public String index(Model m){
@@ -21,13 +22,27 @@ public class widmarkController {
     public String widmark(@ModelAttribute("w") @Valid Widmark w, BindingResult bindingResult, Model m){
         if (bindingResult.hasErrors()) {
             m.addAttribute("w", w);
+            //m.addAttribute("ergebnis", null);
+            //m.addAttribute("hatErgebnis", false);
+            return "index";
+        }
+        m.addAttribute("w", w);
+        //m.addAttribute("ergebnis", w.getWidmark());
+        //m.addAttribute("hatErgebnis", true);
+        return "rechner";
+    }
+
+    @PostMapping("/rechner")
+    public String ergebnis(@ModelAttribute("w") @Valid Widmark w, BindingResult bindingResult, Model m){
+        if (bindingResult.hasErrors()) {
+            m.addAttribute("w", w);
             m.addAttribute("ergebnis", null);
             m.addAttribute("hatErgebnis", false);
-            return "index";
+            return "rechner";
         }
         m.addAttribute("w", w);
         m.addAttribute("ergebnis", w.getWidmark());
         m.addAttribute("hatErgebnis", true);
-        return "index";
+        return "rechner";
     }
 }
