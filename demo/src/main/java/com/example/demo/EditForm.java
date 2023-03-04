@@ -1,4 +1,6 @@
 package com.example.demo;
 
-public record EditForm(String text){
+import jakarta.validation.constraints.NotNull;
+
+public record EditForm(@NotNull String text){
 }
