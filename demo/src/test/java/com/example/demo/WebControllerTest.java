@@ -29,4 +29,12 @@ public class WebControllerTest {
         mvc.perform(post("/form"))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    @DisplayName("Wenn ein Text vorhanden ist, dann erzeugen wir als Antwort ein OK")
+    void test03() throws Exception {
+        mvc.perform(post("/form").param("text", "Das ist ein Text"))
+                .andExpect(status().isOk());
+    }
+
 }
