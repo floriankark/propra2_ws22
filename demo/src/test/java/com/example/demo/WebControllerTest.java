@@ -22,4 +22,11 @@ public class WebControllerTest {
         mvc.perform(post("/form"))
                 .andExpect(status().is(not(404)));
     }
+
+    @Test
+    @DisplayName("Wenn kein Text vorhanden ist, dann erzeugen wir einen Bad Request")
+    void test02() throws Exception {
+        mvc.perform(post("/form"))
+                .andExpect(status().isBadRequest());
+    }
 }
