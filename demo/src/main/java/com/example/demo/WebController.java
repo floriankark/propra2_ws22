@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WebController {
 
     @PostMapping("form")
-    public ResponseEntity<String> editForm(String text){
-        if (text != null) {
+    public ResponseEntity<String> editForm(EditForm editForm){
+        if (editForm.text() != null) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
