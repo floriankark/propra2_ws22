@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -45,10 +46,10 @@ public class WebControllerTest {
     }
 
     @Test
-    @DisplayName("Bad Requests wegen fehlenden Texts werden auf das Formular zurückgeschickt")
+    @DisplayName("Bad Requests wegen fehlenden Texts werden auf das Formular (zurück-)geschickt")
     void test04() throws Exception {
         mvc.perform(post("/form"))
-                .andExpect(view().name("dummy"));
+                .andExpect(view().name("form"));
     }
 
 }
