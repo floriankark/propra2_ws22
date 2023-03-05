@@ -1,14 +1,21 @@
 package com.example.demo;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.web.servlet.MockMvc;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.not;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest
 public class WebControllerTest {
@@ -35,6 +42,13 @@ public class WebControllerTest {
     void test03() throws Exception {
         mvc.perform(post("/form").param("text", "Das ist ein Text"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Bad Requests wegen fehlenden Texts werden auf das Formular zurückgeschickt")
+    void test04() throws Exception {
+        mvc.perform(post("/form"))
+                .andExpect(view().name("dummy"));
     }
 
 }
