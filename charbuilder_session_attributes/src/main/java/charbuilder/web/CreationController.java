@@ -59,14 +59,23 @@ public class CreationController {
                             @RequestParam("Constitution") int con,
                             @RequestParam("Intelligence") int intl,
                             @RequestParam("Wisdom") int wis,
-                            @RequestParam("Charisma") int cha) {
+                            @RequestParam("Charisma") int cha,
+                            @ModelAttribute("character") CharacterInfo character) {
 
     // Character fertigstellen und validieren
-
+    character.setAttribute("Strength", str);
+    character.setAttribute("Dexterity", dex);
+    character.setAttribute("Constitution", con);
+    character.setAttribute("Intelligence", intl);
+    character.setAttribute("Wisdom", wis);
+    character.setAttribute("Charisma", cha);
+    m.addAttribute("character", character);
     // Fehler: Formular wieder anzeigen, Werte müssen erhalten bleiben
-
+    if (!character.isValid()){
+      return "attributes";
+    }
     // Erfolg: Ausgabe der Spielerinformationen auf der Konsole und zurück zur Startseite
-
+    System.out.println(character.toString());
     return "redirect:/";
   }
 
