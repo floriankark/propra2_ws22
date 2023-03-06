@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Character Class</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" type="image/x-icon" href="../static/assets/favicon.ico" th:href="@{/assets/favicon.ico}"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet"/>
+    <!-- JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+<body class="bg-black container">
+<header>
+    <div class="pagehead">
+        <div class="p-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <h1 class="mx-auto my-0 text-uppercase">Game of Thorns</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h2 class="text-white-50">Welcome <span th:text="${character.characterclass.text}">Assassin</span>
+                    <span th:text="${character.name}">August der Hübsche</span>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+</header>
+<section class="container">
+    <form method="post" id="classform">
+        <div class="row">
+            <h2 class="text-white-50" aria-label="">Distribute your attribute points</h2>
+            <p class="text-white-50">The effective value (i.e. the value you entered plus/minus the class bonus/malus)
+                of each attribute must be at least 1. You cannot enter negative numbers, even if the resulting effective value is at least 1.</p>
+        </div>
+        <div class="row p-3" th:each="attr : ${character.ATTRIBUTES}">
+            <div class="col">
+                <label th:for="${attr}"
+                       for="Strength"
+                       th:text="|${attr} :|"
+                       class="text-white-50">
+                    Strength</label>
+            </div>
+            <div class="col">
+                <input class="form-control attribs" type="number"
+                       th:min="${character.minPoints(attr)}"
+                       th:value="${character.getAttribute(attr)}"
+                       th:id="${attr}"
+                       th:name="${attr}"
+                       name="Strength"
+                       onchange="updatePoints()"
+                       id="Strength">
+            </div>
+            <div class="col">
+                <input class="form-control" type="number" disabled="disabled"
+                       value="-1"
+                       th:value="${character.characterclass.getBonus(attr)}">
+            </div>
+        </div>
+        <div class="row pt-3">
+            <p class="text-white-50">You have <span id="remaining">17</span> points left.</p>
+        </div>
+        <div class="row d-flex align-content-center pt-3">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</section>
+<footer class="text-white-50 container pt-5 px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    (c) Please-don't-sue-me-HBO GmbH
+</footer>
+<script th:inline="javascript">
+    var initialPoints = /*[[${character.getPoints}]]*/ "0";
+    function updatePoints() {
+      var used = $(".attribs")
+          .map(function() { return parseInt(this.value) })
+          .toArray().reduce(function(a,b) { return a + b})
+      var remainingPoints = initialPoints - used;
+      $("#remaining").text(remainingPoints)
+    }
+
+    updatePoints()
+</script>
+
+</body>
+</html>
