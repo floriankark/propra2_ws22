@@ -40,18 +40,14 @@ public class CreationController {
   }
 
   @PostMapping("/create/2")
-  public String createStep3(CharacterClass characterclass) {
-    CharacterInfo character = new CharacterInfo("Laime Jannister");
-    character.setCharacterClass(CharacterClass.WARRIOR);
-
+  public String createStep3(CharacterClass characterclass, @ModelAttribute("character") CharacterInfo character) {
+    character.setCharacterClass(characterclass);
     return
         "redirect:/create/3";
   }
 
   @GetMapping("/create/3")
-  public String createAttributeForm(Model m) {
-    CharacterInfo character = new CharacterInfo("Laime Jannister");
-    character.setCharacterClass(CharacterClass.WARRIOR);
+  public String createAttributeForm(@ModelAttribute("character") CharacterInfo character, Model m) {
     m.addAttribute("character", character);
     return "attributes";
   }
