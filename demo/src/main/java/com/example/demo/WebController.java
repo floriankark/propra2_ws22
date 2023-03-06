@@ -16,6 +16,11 @@ public class WebController {
 
     @GetMapping("/")
     public String index(){
+        return "redirect:/form";
+    }
+
+    @GetMapping("form")
+    public String form(){
         return "form";
     }
 
@@ -31,4 +36,3 @@ public class WebController {
         return "form";
     }
 }
-
