@@ -5,13 +5,16 @@ import charbuilder.character.CharacterInfo;
 import java.util.Random;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@SessionAttributes({"character"})
 public class CreationController {
 
+  @ModelAttribute("character")
+  public CharacterInfo getCharacter() {
+    return new CharacterInfo("initalName");
+  }
 
   @GetMapping("/")
   public String index() {
@@ -24,14 +27,14 @@ public class CreationController {
   }
 
   @PostMapping("/create/1")
-  public String createStep1(String charactername) {
-    if (charactername == null || charactername.isBlank()) return "name";
+  public String createStep1(String charactername, @ModelAttribute("character") CharacterInfo character) {
+    character.setName(charactername);
+    if (charactername == null || charactername.isBlank()) return "redirect:/create/1";
     return "redirect:/create/2";
   }
 
   @GetMapping("/create/2")
-  public String createClassForm(Model m) {
-    CharacterInfo character = new CharacterInfo("Laime Jannister");
+  public String createClassForm(@ModelAttribute("character") CharacterInfo character, Model m) {
     m.addAttribute("character", character);
     return "class";
   }
