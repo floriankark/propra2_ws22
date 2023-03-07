@@ -31,7 +31,7 @@ public class widmarkController {
 
     @PostMapping("/info")
     public String widmark(int gewicht, @ModelAttribute("widmark") @Valid Widmark widmark, BindingResult bindingResult, Model m){
-        widmark.gewicht(gewicht);
+        widmark.setGewicht(gewicht);
         if (bindingResult.hasErrors()) {
             m.addAttribute("widmark", widmark);
             //m.addAttribute("ergebnis", null);
@@ -45,15 +45,15 @@ public class widmarkController {
     }
 
     @PostMapping("/rechner")
-    public String ergebnis(@ModelAttribute("w") @Valid Widmark w, BindingResult bindingResult, Model m){
+    public String ergebnis(@ModelAttribute("widmark") @Valid Widmark widmark, BindingResult bindingResult, Model m){
         if (bindingResult.hasErrors()) {
-            m.addAttribute("w", w);
+            m.addAttribute("widmark", widmark);
             m.addAttribute("ergebnis", null);
             m.addAttribute("hatErgebnis", false);
             return "rechner";
         }
-        m.addAttribute("w", w);
-        m.addAttribute("ergebnis", w.getWidmark());
+        m.addAttribute("widmark", widmark);
+        m.addAttribute("ergebnis", widmark.getWidmark());
         m.addAttribute("hatErgebnis", true);
         return "rechner";
     }
