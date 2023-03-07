@@ -21,7 +21,6 @@ public class KlaefferController {
 
     @PostMapping("/")
     public String addKlaeff(String name, String text){
-        System.out.println(name);
         service.addKlaeffer(name, text);
         return "redirect:/";
     }
