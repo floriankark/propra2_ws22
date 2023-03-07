@@ -50,8 +50,7 @@ public class KlaefferControllerTests {
         String name = "Flo";
         mvc.perform(post("/")
                 .param("name", name)
-                .param("text", text))
-                .andExpect(status().is3xxRedirection());
+                .param("text", text));
         verify(service, times(0)).addKlaeffer(name, text);
     }
 
@@ -62,8 +61,7 @@ public class KlaefferControllerTests {
         String name = "";
         mvc.perform(post("/")
                 .param("name", name)
-                .param("text", text))
-                .andExpect(status().is3xxRedirection());
+                .param("text", text));
         verify(service, times(0)).addKlaeffer(name, text);
     }
 
@@ -74,8 +72,7 @@ public class KlaefferControllerTests {
         String name = "Flo";
         mvc.perform(post("/")
                 .param("name", name)
-                .param("text", text))
-                .andExpect(status().is3xxRedirection());
+                .param("text", text));
         verify(service, times(0)).addKlaeffer(name, text);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.klaeffer.web;
 
 import com.example.klaeffer.service.KlaefferService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +21,8 @@ public class KlaefferController {
     }
 
     @PostMapping("/")
-    public String addKlaeff(String name, String text){
-        service.addKlaeffer(name, text);
+    public String addKlaeff(@Valid KlaefferForm klaefferForm){
+        service.addKlaeffer(klaefferForm.getName(), klaefferForm.getText());
         return "redirect:/";
     }
 }
