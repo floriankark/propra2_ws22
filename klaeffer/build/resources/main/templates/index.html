@@ -22,12 +22,13 @@
 
           <form method="post" action="/">
 
-            <div class="form-group">
-              <p><label for="klaeff">Kläff:</label></p>
-              <textarea name="klaeff" id="klaeff" placeholder="Wuff wuff" required></textarea>
-            </div>
+            <label for="nameid">Name:</label>
+            <input id="nameid" type="text" name="name" required th:value="${name}">
 
-            <input type="submit" class="btn btn-primary" value="Submit">
+            <label for="textid">Kläff:</label>
+            <input id="textid" type="text" name="text" placeholder="Wuff wuff" required>
+
+            <input type="submit" class="btn btn-primary" value="Abschicken">
 
           </form>
 
