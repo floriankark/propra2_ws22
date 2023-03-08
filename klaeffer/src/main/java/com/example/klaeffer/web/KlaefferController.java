@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class KlaefferController {
@@ -19,16 +20,18 @@ public class KlaefferController {
 
     @GetMapping("/")
     public String index(Model m){
-        m.addAttribute("klaefferForm", new KlaefferForm("", ""));
+        //m.addAttribute("klaefferForm", new KlaefferForm("", ""));
+
         return "index";
     }
 
     @PostMapping("/")
-    public String addKlaeff(@Valid KlaefferForm klaefferForm, BindingResult bindingResult){
+    public String addKlaeff(@Valid KlaefferForm klaefferForm, BindingResult bindingResult, RedirectAttributes attrs){
         if (bindingResult.hasErrors()){
             return "index";
         }
         service.addKlaeffer(klaefferForm.getName(), klaefferForm.getText());
+        attrs.addFlashAttribute("name", klaefferForm.getName());
         return "redirect:/";
     }
 }
