@@ -19,7 +19,8 @@ public class KlaefferController {
     }
 
     @GetMapping("/")
-    public String index(KlaefferForm klaefferForm){
+    public String index(KlaefferForm klaefferForm, Model m){
+        m.addAttribute("klaeffer", service.getKlaeffer());
         return "index";
     }
 

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35624f11-9fb1-4e45-85e0-563a31c3daa1" name="Default Changelist" comment="add redirect attributes">
+    <list default="true" id="35624f11-9fb1-4e45-85e0-563a31c3daa1" name="Default Changelist" comment="fixed bug in redirect attribute">
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -12,8 +12,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/service/KlaefferService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/service/KlaefferService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/web/KlaefferController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/web/KlaefferController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/service/KlaefferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/service/KlaefferService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/web/KlaefferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/web/KlaefferController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
@@ -64,6 +68,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -74,6 +79,11 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
   </component>
   <component name="RunManager" selected="Spring Boot.KlaefferApplication">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -195,10 +205,24 @@
     <configuration name="KlaefferApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="klaeffer.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.klaeffer.KlaefferApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+      <envs>
+        <env name="CLIENT_ID" value="31d3dc37a08460ca1fbc" />
+        <env name="CLIENT_SECRET" value="42dae8094f6cf2920f5173c609f14425b619edd6" />
+      </envs>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Gradle.KlaefferControllerTests" />
+      <item itemvalue="Gradle.KlaefferControllerTests.test04" />
+      <item itemvalue="Gradle.KlaefferServiceTests" />
+      <item itemvalue="Gradle.KlaefferServiceTests.test_1" />
+      <item itemvalue="Gradle.KlaefferServiceTests.test_2" />
+      <item itemvalue="Spring Boot.KlaefferApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.KlaefferServiceTests" />
@@ -217,7 +241,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678202376420</updated>
-      <workItem from="1678202377892" duration="19033000" />
+      <workItem from="1678202377892" duration="22324000" />
     </task>
     <task id="LOCAL-00001" summary="test add new Kläff">
       <created>1678208155956</created>
@@ -289,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678295578038</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixed bug in redirect attribute">
+      <created>1678296155463</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1678296155463</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,6 +347,7 @@
     <MESSAGE value="add test for saving Klaeffer object" />
     <MESSAGE value="add Klaffer saveable in service" />
     <MESSAGE value="add redirect attributes" />
-    <option name="LAST_COMMIT_MESSAGE" value="add redirect attributes" />
+    <MESSAGE value="fixed bug in redirect attribute" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug in redirect attribute" />
   </component>
 </project>

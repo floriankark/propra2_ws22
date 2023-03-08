@@ -37,8 +37,10 @@
 
           </form>
 
-          <!-- <span th:text="${klaeffer.name}">Name</span>
-          <span th:text="${klaeffer.text}">Text</span> -->
+          <div th:each="klaeff: ${klaeffer}">
+            <span th:text="${klaeff.name}"></span>:
+            <span th:text="${klaeff.text}"></span>
+          </div>
 
         </div>
       </div>

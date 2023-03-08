@@ -13,7 +13,7 @@ public class KlaefferService {
          klaefferListe.addFirst(new Klaeffer(name, text));
     }
 
-    public Klaeffer getKlaeffer(int index){
-        return klaefferListe.get(index);
+    public LinkedList<Klaeffer> getKlaeffer(){
+        return klaefferListe;
     }
 }
