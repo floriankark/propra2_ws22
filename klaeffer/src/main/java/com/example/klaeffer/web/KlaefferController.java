@@ -19,9 +19,7 @@ public class KlaefferController {
     }
 
     @GetMapping("/")
-    public String index(Model m){
-        //m.addAttribute("klaefferForm", new KlaefferForm("", ""));
-
+    public String index(KlaefferForm klaefferForm){
         return "index";
     }
 
@@ -31,7 +29,7 @@ public class KlaefferController {
             return "index";
         }
         service.addKlaeffer(klaefferForm.getName(), klaefferForm.getText());
-        attrs.addFlashAttribute("name", klaefferForm.getName());
+        attrs.addFlashAttribute("klaefferForm", klaefferForm);
         return "redirect:/";
     }
 }
