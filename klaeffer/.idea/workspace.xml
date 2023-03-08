@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35624f11-9fb1-4e45-85e0-563a31c3daa1" name="Default Changelist" comment="add thymeleaf validation to form">
+    <list default="true" id="35624f11-9fb1-4e45-85e0-563a31c3daa1" name="Default Changelist" comment="add test for saving Klaeffer object">
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -12,16 +12,20 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/service/KlaefferService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/service/KlaefferService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/web/KlaefferController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/web/KlaefferController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/com.example.klaeffer.web.KlaefferControllerTests.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/com.example.klaeffer.web.KlaefferControllerTests.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/com/example/klaeffer/web/KlaefferControllerTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/com/example/klaeffer/web/KlaefferControllerTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/com.example.klaeffer.web.KlaefferControllerTests.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/com.example.klaeffer.web.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/com.example.klaeffer.web.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-com.example.klaeffer.web.KlaefferControllerTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-com.example.klaeffer.web.KlaefferControllerTests.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/com.example.klaeffer.web.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-com.example.klaeffer.web.KlaefferControllerTests.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/klaeffer/web/KlaefferControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/klaeffer/web/KlaefferControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/KlaefferController.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/service/KlaefferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/service/KlaefferService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +227,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678202376420</updated>
-      <workItem from="1678202377892" duration="14451000" />
+      <workItem from="1678202377892" duration="15396000" />
     </task>
     <task id="LOCAL-00001" summary="test add new Kläff">
       <created>1678208155956</created>
@@ -274,7 +278,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678222870255</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add test for saving Klaeffer object">
+      <created>1678291145623</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1678291145623</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,6 +309,7 @@
     <MESSAGE value="add test for text and name validation" />
     <MESSAGE value="add validation of text and name" />
     <MESSAGE value="add thymeleaf validation to form" />
-    <option name="LAST_COMMIT_MESSAGE" value="add thymeleaf validation to form" />
+    <MESSAGE value="add test for saving Klaeffer object" />
+    <option name="LAST_COMMIT_MESSAGE" value="add test for saving Klaeffer object" />
   </component>
 </project>
