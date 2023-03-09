@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35624f11-9fb1-4e45-85e0-563a31c3daa1" name="Default Changelist" comment="fixed bug in redirect attribute">
+    <list default="true" id="35624f11-9fb1-4e45-85e0-563a31c3daa1" name="Default Changelist" comment="add oauth login through github">
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -12,12 +12,9 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/service/KlaefferService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/service/KlaefferService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/web/KlaefferController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/web/KlaefferController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/service/KlaefferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/service/KlaefferService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/web/KlaefferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/web/KlaefferController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
@@ -241,7 +238,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678202376420</updated>
-      <workItem from="1678202377892" duration="22324000" />
+      <workItem from="1678202377892" duration="25510000" />
     </task>
     <task id="LOCAL-00001" summary="test add new Kläff">
       <created>1678208155956</created>
@@ -320,7 +317,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678296155463</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add oauth login through github">
+      <created>1678305869135</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1678305869135</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,6 +352,7 @@
     <MESSAGE value="add Klaffer saveable in service" />
     <MESSAGE value="add redirect attributes" />
     <MESSAGE value="fixed bug in redirect attribute" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug in redirect attribute" />
+    <MESSAGE value="add oauth login through github" />
+    <option name="LAST_COMMIT_MESSAGE" value="add oauth login through github" />
   </component>
 </project>
