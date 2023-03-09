@@ -1,4 +1,6 @@
 package com.example.klaeffer.service;
 
-public record Klaeffer(String name, String text) {
+import com.example.klaeffer.domain.User;
+
+public record Klaeffer(User user, String text) {
 }

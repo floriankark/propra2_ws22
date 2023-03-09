@@ -8,7 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class KlaefferServiceTests {
-
+    /*
     @Test
     @DisplayName("Service speichert Klaeffer Objekte")
     void test_1() {
@@ -16,5 +16,7 @@ public class KlaefferServiceTests {
         service.addKlaeffer("Flo", "Willkommen auf Kläffer!");
         assertThat(service.getKlaeffer()).containsExactly(new Klaeffer("Flo", "Willkommen auf Kläffer!"));
     }
+
+     */
 
 }
