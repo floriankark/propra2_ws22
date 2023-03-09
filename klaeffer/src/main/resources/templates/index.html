@@ -36,7 +36,7 @@
           </form>
 
           <div th:each="klaeff: ${klaeffer}">
-            <span th:text="${klaeff.name}"></span>:
+            <a th:href="@{/profil(name=${klaeff.name})}" th:text="${klaeff.name}"></a>:
             <span th:text="${klaeff.text}"></span>
           </div>
 

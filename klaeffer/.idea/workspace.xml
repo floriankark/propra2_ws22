@@ -12,11 +12,14 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/service/KlaefferService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/service/KlaefferService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/web/KlaefferController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/klaeffer/web/KlaefferController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/service/KlaefferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/service/KlaefferService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/web/KlaefferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/klaeffer/web/KlaefferController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/klaeffer/web/KlaefferControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/klaeffer/web/KlaefferControllerTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,9 +49,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Record" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>

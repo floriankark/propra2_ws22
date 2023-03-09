@@ -2,6 +2,7 @@ package com.example.klaeffer.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 @Service

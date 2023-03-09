@@ -22,23 +22,20 @@
 
           <form method="post" action="/" th:action="@{/}" th:object="${klaefferForm}">
             <div class="mb-2">
-              <span th:text="*{name}">Deine Name</span>
+              <label for="nameid">Name:</label>
+              <input id="nameid" type="text" name="name" placeholder="Dogtag" th:value="*{name}">
+              <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Fehler!</small>
             </div>
 
             <div class="mb-2">
               <label for="textid">Kläff:</label>
-              <input id="textid" type="text" name="text" placeholder="Wuff wuff">
-              <small class="text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Fehler!</small>
+              <input id="textid" type="text" name="text" placeholder="Wuff wuff" required th:value="${text}">
+              <!-- <small class="text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Fehler!</small> -->
             </div>
 
             <input type="submit" class="btn btn-primary" value="Abschicken">
 
           </form>
-
-          <div th:each="klaeff: ${klaeffer}">
-            <a th:href="@{/profil(name=${klaeff.name})}" th:text="${klaeff.name}"></a>:
-            <span th:text="${klaeff.text}"></span>
-          </div>
 
         </div>
       </div>

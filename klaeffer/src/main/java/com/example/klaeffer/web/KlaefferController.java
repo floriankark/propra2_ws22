@@ -37,4 +37,10 @@ public class KlaefferController {
         attrs.addFlashAttribute("klaefferForm", klaefferForm);
         return "redirect:/";
     }
+
+    @GetMapping("/profil")
+    public String showProfile(String name, Model m){
+        m.addAttribute("name", name);
+        return "profil";
+    }
 }
