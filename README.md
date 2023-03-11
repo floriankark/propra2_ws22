@@ -955,3 +955,54 @@ void test_3() throws Exception {
 # Woche 8
 
 ## Datenbanken
+
+## Docker 
+Ermöglicht, Anwendungen in isolierten Containern zu erstellen, bereitzustellen und auszuführen.
+
+### Docker Compose
+
+Wird verwendet, um mehrere Container gleichzeitig zu Orchestrieren. Standartmäßig sind alle Container die im Compose File gestartet werden im selben Netzwerk. Dabei schreiben wir eine YAML-Datei, in der wir für einen oder mehrere Container alle Parameter festlegen.
+
+Beispiel:
+```
+version: "3.1"
+services:
+  kundendb:
+    image: postgres:15-alpine
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./data/kunden:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_DB=kunden"
+      - "POSTGRES_USER=exampleuser"
+      - "POSTGRES_PASSWORD=iamgroot"
+  legacydb:
+    image: postgres:14.1-alpine
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./data/legacy:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_DB=legacy"
+      - "POSTGRES_USER=legacyuser"
+      - "POSTGRES_PASSWORD=iamgroot"
+```
+
+## Java Database Connectivity (JDBC)
+
+### Konfiguration von Datenbanken und Erzeugen der Tabellen
+
+### Der Umgang mit JdbcTemplate
+
+## Testen der Anwendung
+
+Test-Klassen werden annotiert mit @JdbcTest, das Analogon zu den Controllertests, die mit @WebMvcTest annotiert wurden.
+
+Dadurch injizieren wir im Test eine gültige JdbcTemplate-Instanz. 
+Diese Instanz ist allerdings per Default an eine In-Memory Variante gebunden.
+
+1 Annotieren mit @JdbcTest und setzen jdbc nicht auf null, sondern Objekt per @Autowired-Annotation injizieren. 
+1 Beim Starten gibt es einen Fehler, denn es gibt keine In-Memory Datenbank in den Dependencies.  
+1 Das Buildfile muss um testRuntimeOnly 'com.h2database:h2' ergänzt werden.
+
