@@ -1040,7 +1040,7 @@ Spring Data Modell:
 Einfaches Beispiel:
 
 ![aggregatCode](images/aggregatCode.png)
-Achtung, die Parameter müssen gleich benannt werden wie die Spalten in der Tabelle!
+Achtung, die Parameter müssen gleich benannt werden wie die Spalten in der Tabelle! Die Camel-Case-Notation aus Java wird so übersetzt, dass alle Namen in der Datenbank kleingeschrieben werden und dort, wo in Java ein Großbuchstabe steht, wird in der Datenbank ein Unterstrich eingeführt.
 
 ![repositoryCode](images/repositoryCode.png)
 Keine Implementation, weil alles von Spring automatisch übernommen wird.
@@ -1095,3 +1095,14 @@ create table one_to_many_list_internal_value
     content                          text
 )
 ```
+
+__Referenzen zwischen Aggregaten__
+Jede Referenz innerhalb eines Aggregats macht das Objekt, das referenziert wird, zum Teil des Aggregats. D.h. Spring Data lädt und speichert alle referenzierten Objekte gemeinsam. Wenn wir aus einem Aggregat ein anderes Aggregat referenzieren wollen, dann können man das in der Objektwelt machen indem im Java-Code explizite Wertobjekte modelliert werden, die den Identifier für das referenzierte Aggregat enthalten. Oder man verwendet die von Spring Data JDBC bereitgestellte AggregateReference Klasse.
+
+Jedes Aggregat einer Anwendung hat ein eigenes Repository und wird durch den Service separat geladen. Wenn wir also mehr als ein Aggregat in einem Service benötigen, dann müssen wir diese Aggregate immer im Service separat laden.
+
+__Derived Queries__
+Eines der interessantesten Features von Spring Data Repositories sind die derived Queries. Dabei wird aus einem Methodennamen im Repository Interface automatisch eine passende SQL-Query abgeleitet. Wenn wir keine derived Query ableiten können, dann können wir eine Repository-Methode mit @Query annotieren und dort als Parameter einen SQL-Befehl mitgeben.
+
+
+
