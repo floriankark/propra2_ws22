@@ -1026,6 +1026,21 @@ Ein Application Service...
 ![glossar_aggregate](images/glossar_aggregate.png)
 
 ## Spring Data (JDBC)
+Tabellen aus Datenbanken müssen auf Objekte abgebildet werden. Das wird oft kompliziert richtig durchzuführen, weil die Datenbank nicht genau auf unseren code abgebildet werden kann (auch Objekt-Relationaler Bruch gennant). Dabei hilft Spring Data.
 
-Bestehende Anwendung auf die Verwendung eines Aggregats umschreiben. Kleine Anwendung kann man wegwerfen und neu schreiben. In größeren Anwendungen ist das aber vielleicht nicht möglich, und man führt (schrittweise) eine Transformation durch.
+![objektRelationalerBruch](images/objektRelationalerBruch.png)
 
+Spring Data Modell:
+
+(Zunächst bestehende Anwendung auf die Verwendung eines Aggregats umschreiben. Kleine Anwendung kann man wegwerfen und neu schreiben. In größeren Anwendungen ist das aber vielleicht nicht möglich, und man führt (schrittweise) eine Transformation durch.)
+
+- Ein Aggregat wird komplett aus der Datenbank in den Speicher geladen
+- Ein Aggregat wird nur persistiert, wenn es explizit aufgerufen wird
+
+Einfaches Beispiel:
+
+![aggregatCode](images/aggregatCode.png)
+Achtung, die Parameter müssen gleich benannt werden wie die Spalten in der Tabelle!
+
+![repositoryCode](images/repositoryCode.png)
+Keine Implementation, weil alles von Spring automatisch übernommen wird.
