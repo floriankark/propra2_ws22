@@ -1044,3 +1044,54 @@ Achtung, die Parameter müssen gleich benannt werden wie die Spalten in der Tabe
 
 ![repositoryCode](images/repositoryCode.png)
 Keine Implementation, weil alles von Spring automatisch übernommen wird.
+
+__Referenzen innerhalb von Aggregaten__
+Aggregate werden aus Entitäten und Wertobjekten zusammengesetzt, die vom Aggregate Root referenziert werden. Ein Mapping in die Datenbank bedeutet in diesem Fall, dass im Allgemeinen nicht eine einfache Typumwandlung vorgenommen werden kann, sondern weitere Tabellen existieren. Dabei unterscheidet man zwischen normalen, direkten Objektreferenzen, die in der Datenbank einer 1:1-Beziehung entsprechen, und Referenzen auf Kollektionen (Sets, Maps und Listen) von Objekten, die in der Datenbank einer 1:n-Beziehung entsprechen. In Spring Data JDBC gibt es keine n:m-Beziehungen, da in diesen Fällen immer mehr als ein Aggregat vorliegt.
+
+__1:1-Beziehungen__ Bei einer 1:1-Beziehung haben wir eine einfache Objektreferenz auf unsere interne Entität (im Folgenden sind Wertobjekte immer mitgemeint) im Aggregate-Root. In der zur Entität gehörenden Tabelle haben wir einen Primärschlüssel, der genauso heißt wie die Tabelle des Aggregate-Roots und den Primärschlüssel des Aggregate-Roots referenziert.
+```
+create table one_to_one_root_entity
+(
+    id   serial primary key,
+    name varchar(500)
+);
+
+create table one_to_one_internal_value
+(
+    one_to_one_root_entity integer primary key references one_to_one_root_entity (id),
+    content                text
+)
+```
+__1:n mit Sets__ In diesem Fall haben wir im Aggregate-Root ein Set von Entitäten und in der Entitätentabelle haben wir einen Fremdschlüssel, der den Primärschlüssel des Aggregate-Roots referenziert. Auch hier muss der Fremdschlüssel genauso heißen, wie die Tabelle des Aggregate-Roots.
+
+```
+create table one_to_many_set_root_entity
+(
+    id   serial primary key,
+    name varchar(500)
+);
+
+create table one_to_many_set_internal_value
+(
+    id                          serial primary key,
+    one_to_many_set_root_entity integer references one_to_many_set_root_entity (id),
+    content                     text
+)
+```
+__1:n mit Listen__ Die Listen-Variante ist fast identisch mit der Set-Variante, es wird aber in der Datenbank ein zusätzliches integer Feld benötigt, das die Reihenfolge der Elemente festhält.
+
+```
+create table one_to_many_list_root_entity
+(
+    id   serial primary key,
+    name varchar(500)
+);
+
+create table one_to_many_list_internal_value
+(
+    id                               serial primary key,
+    one_to_many_list_root_entity     integer references one_to_many_list_root_entity (id),
+    one_to_many_list_root_entity_key integer,
+    content                          text
+)
+```
