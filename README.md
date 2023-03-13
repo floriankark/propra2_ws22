@@ -1006,3 +1006,26 @@ Diese Instanz ist allerdings per Default an eine In-Memory Variante gebunden.
 1 Beim Starten gibt es einen Fehler, denn es gibt keine In-Memory Datenbank in den Dependencies.  
 1 Das Buildfile muss um testRuntimeOnly 'com.h2database:h2' ergänzt werden.
 
+# Woche 9
+
+## Aggregate und Datenbanken
+
+Z. B. beim Löschen eines Begriffs müssen auch alle Definitionen (Aus Beispiel Propra-Glossar) gelöscht werden und bei steigender Komplexität der Beziehungen kann ein Aggregat eingeführt werden. Beim Einfügen und Löschen muss außerdem an Nebenläufigkeit gedacht werden.
+
+### Aggregate
+
+Wdh.: Ein Aggregat stellt eine Einheit nach außen dar und darf ausschließlich über Methoden in der Root-Entity angesprochen werden. Alle Interna sind hinter diesem Aggregat-Root verborgen.
+
+D.h. es werden vollständige Aggregate aus der Datenbank geladen und in der Datenbank gespeichern. 
+regeln in der Onion-Architektur für den Zugriff auf Aggregate:
+Ein Application Service...
+- ... lädt die notwendigen Aggregate über ein Repository 
+- ... ruft die Geschäftslogik für den entsprechenden Usecase auf (also Methoden der Aggregate oder der Domänen-Services) 
+- ... speichert die Aggregate wieder mithilfe des Repositories
+
+![glossar_aggregate](images/glossar_aggregate.png)
+
+## Spring Data (JDBC)
+
+Bestehende Anwendung auf die Verwendung eines Aggregats umschreiben. Kleine Anwendung kann man wegwerfen und neu schreiben. In größeren Anwendungen ist das aber vielleicht nicht möglich, und man führt (schrittweise) eine Transformation durch.
+
