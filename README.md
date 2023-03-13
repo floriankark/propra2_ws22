@@ -1045,7 +1045,7 @@ Achtung, die Parameter müssen gleich benannt werden wie die Spalten in der Tabe
 ![repositoryCode](images/repositoryCode.png)
 Keine Implementation, weil alles von Spring automatisch übernommen wird.
 
-__Referenzen innerhalb von Aggregaten__
+### Referenzen innerhalb von Aggregaten
 Aggregate werden aus Entitäten und Wertobjekten zusammengesetzt, die vom Aggregate Root referenziert werden. Ein Mapping in die Datenbank bedeutet in diesem Fall, dass im Allgemeinen nicht eine einfache Typumwandlung vorgenommen werden kann, sondern weitere Tabellen existieren. Dabei unterscheidet man zwischen normalen, direkten Objektreferenzen, die in der Datenbank einer 1:1-Beziehung entsprechen, und Referenzen auf Kollektionen (Sets, Maps und Listen) von Objekten, die in der Datenbank einer 1:n-Beziehung entsprechen. In Spring Data JDBC gibt es keine n:m-Beziehungen, da in diesen Fällen immer mehr als ein Aggregat vorliegt.
 
 __1:1-Beziehungen__ Bei einer 1:1-Beziehung haben wir eine einfache Objektreferenz auf unsere interne Entität (im Folgenden sind Wertobjekte immer mitgemeint) im Aggregate-Root. In der zur Entität gehörenden Tabelle haben wir einen Primärschlüssel, der genauso heißt wie die Tabelle des Aggregate-Roots und den Primärschlüssel des Aggregate-Roots referenziert.
@@ -1104,5 +1104,13 @@ Jedes Aggregat einer Anwendung hat ein eigenes Repository und wird durch den Ser
 __Derived Queries__
 Eines der interessantesten Features von Spring Data Repositories sind die derived Queries. Dabei wird aus einem Methodennamen im Repository Interface automatisch eine passende SQL-Query abgeleitet. Wenn wir keine derived Query ableiten können, dann können wir eine Repository-Methode mit @Query annotieren und dort als Parameter einen SQL-Befehl mitgeben.
 
+## Anwendung auf Spring Data JDBC als Persistenzmechanismus umstellen
 
+- Starten mit Laden der Dependencies im Buildfile (Flyway und die Treiber für PostgresSQL und H2), Starter für Spring Data JDBC verwenden
+- Nächster Schritt ist das Anlegen der Tabellenstruktur (siehe oben)
+- Klassen (Aggregate) anpassen
+- Als Nächstes das Spring Data Repository hinzufügen. Das Repository erweitert das Interface CrudRepository<...,...> aus Spring Data
+- Programm auf die Verwendung der Datenbank umstellen. Dabei das Repository in den Service injizieren. Deswegen müssen Veränderungen im ServiceTest vorgenommen werden, denn dort wird der Service für die Tests erzeugt. Im Fall von Spring Data JDBC verwenden wir die @DataJdbcTest-Annotation und lassen das Repository injizieren
+- Zum Schluss können den Service so umbauen, dass das Repository verwendet wird
 
+# Woche 10
