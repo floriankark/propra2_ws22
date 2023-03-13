@@ -956,6 +956,17 @@ void test_3() throws Exception {
 
 ## Datenbanken
 
+### Natürliche oder künstliche Schlüssel?
+Eine Teilmenge S von Attributen einer Relation heißt Schlüssel, wenn sie ...
+- die Datensätze eindeutig identifiziert, d. h. es gibt keine zwei Datensätze mit derselben Kombination von Werten in S,
+- für alle Einträge definiert ist, d. h. jeder Datensatz hat Werte für die Attribute in S,
+- minimal ist, d. h. keine echte Teilmenge von S kann die Datensätze eindeutig identifizieren.
+
+Ein natürlicher Schlüssel wird durch die in der Relation vorhandenen Daten bestimmt.
+Ein künstlicher Schlüssel (Surrogatschlüssel) wird in eine Relation als zusätzliches Attribut eingeführt. Oft wird als künstlicher Schlüssel eine fortlaufende Nummer gewählt, aber im Prinzip kommen als Surrogatschlüssel auch andere Möglichkeiten wie beispielsweise Universally Unique Identifier (UUID) in Betracht.
+
+Aus Sicht der Anwendungsentwicklung ist bei der Wahl eines natürlichen Schlüssels besonders interessant, wie sicher man sich ist, dass dieser Schlüssel auch langfristig ein Schlüssel sein wird. Änderungen in der Fachlichkeit, die sich auf die Datenspeicherung auswirken, können dazu führen, dass ein natürlicher Schlüssel nicht mehr hinreichend ist. Man sollte sich immer die Frage stellen, wie wahrscheinlich eine Änderung in der Fachlichkeit ist, die eine Änderung der Datenspeicherung notwendig macht. Also bei langfristigen Schlüsseln am besten den natürlichen wählen, sonst künstlichen.
+
 ## Docker 
 Ermöglicht, Anwendungen in isolierten Containern zu erstellen, bereitzustellen und auszuführen.
 
@@ -991,9 +1002,15 @@ services:
 
 ## Java Database Connectivity (JDBC)
 
+Wir können direkt JDBC verwenden, um mit der Datenbank zu kommunizieren. Allerdings ist es komfortabler und weniger fehleranfällig, wenn wir eine von Spring bereitgestellte höherwertige Abstraktion, die JDBC API verwenden.
+
+Die JDBC API, die Sie im Initializr auswählen können ist, eine Abstraktion, die über dem normalen Java JDBC liegt und für uns das Management der Connections und das Exceptionhandling übernimmt und uns auch noch bequemere Wege zur Verfügung stellt, die Ergebnisse einer Query abzufragen.
+
 ### Konfiguration von Datenbanken und Erzeugen der Tabellen
+todo video zusammfassen
 
 ### Der Umgang mit JdbcTemplate
+todo video zusammfassen
 
 ## Testen der Anwendung
 
